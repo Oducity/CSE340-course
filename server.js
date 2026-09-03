@@ -1,9 +1,10 @@
 import express from "express";
 
-const NODE_ENV = "production";
+//Define the environment and port
+const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 //const PORT = process.env.PORT || 3000;
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
