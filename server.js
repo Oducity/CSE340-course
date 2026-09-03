@@ -2,20 +2,21 @@ import express from "express";
 import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get the current file path
 import path from "path"; // import path from "path" to get the current directory path
 
+const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 /*
 In the code bellow, import.meta.url gives the URL of the current module, 
 fileURLToPath() converts that URL to a file system path,
 path.dirname() extracts just the directory portion. This recreates
 the same functionality that CommonJS provided automatically.
 */
+
+const PORT = process.env.PORT || 3000;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //Define the environment and port
-const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
-//const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 3000;
 
 const app = express();
 
