@@ -30,13 +30,15 @@
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
   font-family: var(--font-base);
   font-size: 16px;
   line-height: 1.6;
   color: var(--color-text);
   background: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 img {
@@ -94,7 +96,8 @@ nav a:focus {
 /* Main content -------------------------------------------------------------- */
 main {
   width: min(90%, var(--max-width));
-  margin: 3.5rem auto;
+  margin: 0 auto;
+  flex-grow: 1;
 }
 
 main h1 {
