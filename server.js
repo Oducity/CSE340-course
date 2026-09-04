@@ -17,7 +17,6 @@ const __dirname = path.dirname(__filename);
 
 //Define the environment and port
 
-
 const app = express();
 
 /*
@@ -26,6 +25,13 @@ This means that any files in the "public" directory can be accessed directly via
 For example, if there's a file "public/css/main.css", it can be accessed at "http://localhost:3000/css/main.css".
 */
 app.use(express.static(path.join(__dirname, "public")));
+
+
+// Set the view engine to EJS for rendering dynamic content in HTML files.
+app.set("view engine", "ejs");
+
+// Set the directory for view templates to "src/views".
+app.set("views", path.join(__dirname, "src/views"));
 
 // Route handlers for different paths.
 // Each route sends a specific HTML file as a response.
