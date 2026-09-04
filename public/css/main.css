@@ -98,6 +98,7 @@ main {
   width: min(90%, var(--max-width));
   margin: 0 auto;
   flex-grow: 1;
+  padding: 0.5rem;
 }
 
 main h1 {
@@ -169,7 +170,6 @@ main ul.list li strong {
 
 /* Footer --------------------------------------------------------------------- */
 footer {
-  margin-top: 5rem;
   padding: 1.5rem;
   text-align: center;
   color: var(--color-muted);
