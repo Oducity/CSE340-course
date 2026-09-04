@@ -50,7 +50,7 @@ app.get("/projects", async (req, res) => {
 });
 
 app.get("/category", async (req, res) => {
-  const title = "Category";
+  const title = "Service Categories";
   res.render("category", { title });
 });
 
