@@ -34,17 +34,17 @@ app.set("views", path.join(__dirname, "src/views"));
 
 // Route handlers for different paths.
 // Each route sends a specific HTML file as a response.
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   const title = "Home";
   res.render("home", { title });
 });
 
-app.get("/organizations", (req, res) => {
+app.get("/organizations", async (req, res) => {
   const title = "Our Organizations Partners";
   res.render("organizations", { title });
 });
 
-app.get("/projects", (req, res) => {
+app.get("/projects", async (req, res) => {
   const title = "Service Projects";
   res.render("projects", { title });
 });
