@@ -1,6 +1,7 @@
 import express from "express";
 import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get the current file path
 import path from "path"; // import path from "path" to get the current directory path
+import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 /*
@@ -54,7 +55,12 @@ app.get("/category", async (req, res) => {
   res.render("category", { title });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://127.0.0.1:${PORT}`);
-  console.log(`Environment: ${NODE_ENV}`);
+app.listen(PORT, async () => {
+  try {
+    await testConnection(); // Test the database connection when the server starts
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+  } catch (error) {
+    console.error("Database connection failed:", error);
+  }
 });
