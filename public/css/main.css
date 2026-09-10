@@ -138,6 +138,7 @@ main ul.list {
 
 main ul.list li {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.25rem;
@@ -148,6 +149,13 @@ main ul.list li {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
+}
+
+main .logo-name-email {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
 }
 
 main ul.list li:hover {
@@ -166,6 +174,12 @@ main ul.list li img {
 
 main ul.list li strong {
   color: var(--color-heading);
+}
+
+main .list .organization-item .description {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.875rem;
 }
 
 /* Footer --------------------------------------------------------------------- */
@@ -205,7 +219,8 @@ footer p {
     padding: 1rem;
   }
 
-  main .list .organization-item {
+  main .list .organization-item,
+  main .list .logo-name-email {
     display: flex;
     flex-direction: column;
   }
