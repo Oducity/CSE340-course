@@ -2,6 +2,7 @@ import express from "express";
 import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get the current file path
 import path from "path"; // import path from "path" to get the current directory path
 import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
+import { getAllOrganizations } from "./src/models/organizations.js"; // import getAllOrganizations from organizations.js to get all organizations from the database
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 /*
@@ -41,8 +42,10 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/organizations", async (req, res) => {
+  const organizations = await getAllOrganizations(); // Fetch all organizations from the database
+  console.log("Fetched organizations:", organizations); // Log the fetched organizations for debugging
   const title = "Our Organizations Partners";
-  res.render("organizations", { title });
+  res.render("organizations", { title }); // Render the "organizations" view and pass the title and organizations data to it
 });
 
 app.get("/projects", async (req, res) => {
