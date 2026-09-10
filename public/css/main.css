@@ -155,7 +155,7 @@ main .logo-name-email {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 1.25rem;
+  padding: 1rem 0;
 }
 
 main ul.list li:hover {
