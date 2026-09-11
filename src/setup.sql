@@ -106,3 +106,41 @@ VALUES
 (3, 'Disaster Relief Volunteer Response Network', 
  'Building a roster of trained volunteers ready to mobilize quickly in support of local charities responding to floods and other emergencies affecting nearby communities.', 
  'Lekki Lagos', '2025-11-02');
+
+ -- Category table creation
+ CREATE TABLE category (
+category_id SERIAL PRIMARY KEY,
+category_name VARCHAR(50) NOT NULL UNIQUE,
+category_description TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- This script inserts data into the category table
+INSERT INTO category (
+	category_name,
+	category_description
+)
+VALUES (
+	'environmental',
+	'This category contain all projects related to development and improvement of the environment.'
+),
+(
+	'Educational',
+	'This category contain all projects related to education. Either formal or informal.'
+),
+(
+	'Community Service',
+	'This contain all projects related to community services.'
+),
+(
+	'Health and Wellness',
+	'This category contain all projects related to health and wellness'
+);
+
+-- This script creates the project_category table in the database
+--which establishes a many-to-many relationship between projects and categories
+CREATE TABLE projects_category(
+	project_id INTEGER REFERENCES projects(project_id),
+	category_id INTEGER REFERENCES category(category_id),
+	PRIMARY KEY (project_id, category_id)
+);
