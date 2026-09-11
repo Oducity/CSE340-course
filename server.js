@@ -51,7 +51,8 @@ app.get("/organizations", async (req, res) => {
 app.get("/projects", async (req, res) => {
   const projects = await getAllProjects(); // Fetch all projects from the database
   const title = "Service Projects";
-  res.render("projects", { title, projects }); // Render the "projects" view and pass the title and projects data to the template
+  console.log(projects); // Log the projects data to the console for debugging purposes
+  res.render("projects", { title }); // Render the "projects" view and pass the title and projects data to the template
 });
 
 app.get("/category", async (req, res) => {
