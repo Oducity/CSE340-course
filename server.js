@@ -3,7 +3,7 @@ import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get t
 import path from "path"; // import path from "path" to get the current directory path
 import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
 import { getAllOrganizations } from "./src/models/organizations.js"; // import getAllOrganizations from organizations.js to get all organizations from the database
-import { getAllProjects } from "./src/models/projects.js"; // import getAllProjects from projects.js to get all projects from the database
+import { getAllProjects } from "./src/models/projectsPagesOf Projects.js"; // import getAllProjects from projects.js to get all projects from the database
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 /*
