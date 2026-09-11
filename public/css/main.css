@@ -154,7 +154,8 @@ main ul.list li {
     box-shadow 0.2s ease;
 }
 
-main ul.list li.project-item p {
+main ul.list li.project-item p,
+main ul.list li.product-item h3 {
   display: flex;
   gap: 0.5rem;
   align-items: left;
@@ -234,7 +235,8 @@ footer p {
     padding: 1rem;
   }
 
-  main ul.list li.project-item p {
+  main ul.list li.project-item p,
+  main ul.list li.project-item h3 {
     flex-direction: column;
     align-items: left;
   }

@@ -5,11 +5,11 @@
   <ul class="list">
     <% projects.forEach((project) => { %>
       <li class="project-item">
-        <h3><%= project.organization %></h3>
-        <p><strong>Title:</strong><span> <%= project.projectTitle %></span></p>
-        <p><strong>Description:</strong><span> <%= project.projectDescription %></span></p>
-        <p><strong>Location:</strong><span> <%= project.projectLocation %></span></p>
-        <p><strong>Date:</strong><span> <%= project.projectDate %></span></p>
+        <p><strong>Organization Name:</strong> <span><%= project.organization %></span></p>
+        <p><strong>Project Title:</strong> <%= project.projectTitle %></p>
+        <p><strong>Project Description:</strong> <%= project.projectDescription %></p>
+        <p><strong>Project Location:</strong> <%= project.projectLocation %></p>
+        <p><strong>Project Date:</strong> <%= project.projectDate %></p>
       </li>
     <% }); %>
   </ul>
