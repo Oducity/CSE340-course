@@ -4,10 +4,12 @@
   <h1><%= title %></h1>
   <h2>List of Services</h2>
   <ul class="list">
-    <li class="category-item">Environmental</li>
-    <li class="category-item">Educational</li>
-    <li class="category-item">Community Service</li>
-    <li class="category-item">Health and Wellness</li>
+    <% categories.forEach((category) => { %>
+      <li class="category-item">
+        <span><strong><%= category.category_name %>:</strong></span>
+        <span> <%= category.category_description %></span>
+      </li>
+    <% }); %>
   </ul>
 </main>
 <%- include('partials/footer') %>
