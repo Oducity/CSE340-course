@@ -4,6 +4,7 @@ import path from "path"; // import path from "path" to get the current directory
 import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
 import { getAllOrganizations } from "./src/models/organizations.js"; // import getAllOrganizations from organizations.js to get all organizations from the database
 import { getAllProjects } from "./src/models/projects.js"; // import getAllProjects from projects.js to get all projects from the database
+import { getAllCategories } from "./src/models/categories.js"; // import getAllCategories from categories.js to get all categories from the database
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 /*
@@ -55,8 +56,9 @@ app.get("/projects", async (req, res) => {
 });
 
 app.get("/category", async (req, res) => {
+  const categories = await getAllCategories(); // Fetch all categories from the database
   const title = "Service Categories";
-  res.render("category", { title });
+  res.render("categories", { title, categories }); // Render the "category" view and pass the title and categories data to the template
 });
 
 app.listen(PORT, async () => {
