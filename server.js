@@ -58,7 +58,7 @@ app.get("/projects", async (req, res) => {
 app.get("/category", async (req, res) => {
   const categories = await getAllCategories(); // Fetch all categories from the database
   const title = "Service Categories";
-  res.render("category", { title, categories }); // Render the "category" view and pass the title and categories data to the template
+  res.render("categories", { title, categories }); // Render the "category" view and pass the title and categories data to the template
 });
 
 app.listen(PORT, async () => {
