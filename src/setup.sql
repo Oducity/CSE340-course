@@ -138,9 +138,45 @@ VALUES (
 );
 
 -- This script creates the project_category table in the database
---which establishes a many-to-many relationship between projects and categories
+--which establishes a many-to-many relationship between projects and category
 CREATE TABLE projects_category(
 	project_id INTEGER REFERENCES projects(project_id),
 	category_id INTEGER REFERENCES category(category_id),
 	PRIMARY KEY (project_id, category_id)
 );
+
+-- This script inserts data into the projects_category table which establishes the many-to-many relationship between projects and category
+INSERT INTO projects_category( project_id, category_id )
+VALUES ( 1, 3 ),
+		( 2, 3),
+		(2, 4),
+		(3, 2 ),
+		(3, 3),
+		(4, 1),
+		(4, 3),
+		(5, 3),
+		(6, 2),
+		(6, 3),
+		(6, 4),
+		(7, 2),
+		(7, 4),
+		(8, 1),
+		(8, 3),
+		(8, 4),
+		(9, 1),
+		(9, 3),
+		(9, 4),
+		(10, 2),
+		(10, 3),
+		(10, 4),
+		(11, 1),
+		(11, 3),
+		(11, 4),
+		(12, 2),
+		(12, 3),
+		(13, 3),
+		(13, 4),
+		(14, 4),
+		(15, 1),
+		(15, 3),
+		(15, 4);
