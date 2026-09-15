@@ -43,6 +43,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// This middleware set the NODE_ENV variable in as a global variable in the
+// res.locals to be available to all .ejs files throughout the programme.
 app.use((req, res, next) => {
   res.locals.NODE_ENV = NODE_ENV;
   next();
@@ -70,6 +73,41 @@ app.get("/category", async (req, res) => {
   const categories = await getAllCategories(); // Fetch all categories from the database
   const title = "Service Categories";
   res.render("categories", { title, categories }); // Render the "category" view and pass the title and categories data to the template
+});
+
+// 404 - page not found error page handler for all routes.
+app.use((req, res, next) => {
+  const err = new Error("Page Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// Test route for 500 errors
+app.use("/test-error", (req, res, next) => {
+  const err = new Error("This is a test error");
+  err.status = 500;
+  next(err);
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  // Log error for debugging
+  console.error("Error occurred", err.message);
+  console.error("Stack trace", err.stack);
+
+  // Determine the status code and template
+  const status = err.status || 500;
+  const template = status === 404 ? "404" : "500";
+
+  // Prepare data for the template
+  const context = {
+    title: status === 404 ? "Page Not Found" : "Server Error",
+    error: err.message,
+    stack: err.stack,
+  };
+
+  // Render the appropriate error template
+  res.status(status).render(`errors/${template}`, context);
 });
 
 app.listen(PORT, async () => {
