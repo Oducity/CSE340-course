@@ -82,6 +82,27 @@ app.use((req, res, next) => {
   next();
 });
 
+// Global error handler
+app.use((err, req, res, next) => {
+  // Log error for debugging
+  console.log("Error occurred", err.message);
+  console.log("Stack trace", err.Stack);
+
+  // Determine the status code and template
+  const status = err.status || 500;
+  const template = status === 404 ? "404" : "500";
+
+  // Prepare data for the template
+  const context = {
+    title: status === 404 ? "Page Not Found" : "Server Error",
+    error: err.message,
+    stack: err.stack,
+  };
+
+  // Render the appropriate error template
+  res.status(status).render(`error/${template}`, context);
+});
+
 app.listen(PORT, async () => {
   try {
     await testConnection(); // Test the database connection when the server starts
