@@ -43,6 +43,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// This middleware set the NODE_ENV variable in as a global variable in the
+// res.locals to be available to all .ejs files throughout the programme.
 app.use((req, res, next) => {
   res.locals.NODE_ENV = NODE_ENV;
   next();
@@ -70,6 +73,13 @@ app.get("/category", async (req, res) => {
   const categories = await getAllCategories(); // Fetch all categories from the database
   const title = "Service Categories";
   res.render("categories", { title, categories }); // Render the "category" view and pass the title and categories data to the template
+});
+
+// 404 - page not found error page handler for all routes.
+app.use((req, res, next) => {
+  const err = new Error("Page Not Found");
+  err.status = 404;
+  next();
 });
 
 app.listen(PORT, async () => {
