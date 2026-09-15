@@ -79,14 +79,21 @@ app.get("/category", async (req, res) => {
 app.use((req, res, next) => {
   const err = new Error("Page Not Found");
   err.status = 404;
-  next();
+  next(err);
+});
+
+// Test route for 500 errors
+app.use("/test-error", (req, res, next) => {
+  const err = new Error("This is a test error");
+  err.status = 500;
+  next(err);
 });
 
 // Global error handler
 app.use((err, req, res, next) => {
   // Log error for debugging
-  console.log("Error occurred", err.message);
-  console.log("Stack trace", err.Stack);
+  console.error("Error occurred", err.message);
+  console.error("Stack trace", err.stack);
 
   // Determine the status code and template
   const status = err.status || 500;
@@ -100,7 +107,7 @@ app.use((err, req, res, next) => {
   };
 
   // Render the appropriate error template
-  res.status(status).render(`error/${template}`, context);
+  res.status(status).render(`errors/${template}`, context);
 });
 
 app.listen(PORT, async () => {
