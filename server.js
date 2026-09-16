@@ -2,9 +2,6 @@ import express from "express";
 import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get the current file path
 import path from "path"; // import path from "path" to get the current directory path
 import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
-import { getAllOrganizations } from "./src/models/organizations.js"; // import getAllOrganizations from organizations.js to get all organizations from the database
-import { getAllProjects } from "./src/models/projects.js"; // import getAllProjects from projects.js to get all projects from the database
-import { getAllCategories } from "./src/models/categories.js"; // import getAllCategories from categories.js to get all categories from the database
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 /*
@@ -52,35 +49,16 @@ app.use((req, res, next) => {
 });
 // Route handlers for different paths.
 // Each route sends a specific HTML file as a response.
-app.get("/", async (req, res) => {
-  const title = "Home";
-  res.render("home", { title });
-});
+app.get("/");
 
-app.get("/organizations", async (req, res) => {
-  const organizations = await getAllOrganizations(); // Fetch all organizations from the database
-  const title = "Our Organizations Partners";
-  res.render("organizations", { title, organizations }); // Render the "organizations" view and pass the title and organizations data to the template
-});
+app.get("/organizations");
 
-app.get("/projects", async (req, res) => {
-  const projects = await getAllProjects(); // Fetch all projects from the database
-  const title = "Service Projects";
-  res.render("projects", { title, projects }); // Render the "projects" view and pass the title and projects data to the template
-});
+app.get("/projects");
 
-app.get("/category", async (req, res) => {
-  const categories = await getAllCategories(); // Fetch all categories from the database
-  const title = "Service Categories";
-  res.render("categories", { title, categories }); // Render the "category" view and pass the title and categories data to the template
-});
+app.get("/category");
 
 // 404 - page not found error page handler for all routes.
-app.use((req, res, next) => {
-  const err = new Error("Page Not Found");
-  err.status = 404;
-  next(err);
-});
+app.use();
 
 // Test route for 500 errors
 app.use("/test-error", (req, res, next) => {
