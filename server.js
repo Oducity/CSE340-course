@@ -41,31 +41,22 @@ app.use((req, res, next) => {
   next();
 });
 
-// This middleware set the NODE_ENV variable in as a global variable in the
+// This middleware set the NODE_ENV variable as a global variable in the
 // res.locals to be available to all .ejs files throughout the programme.
 app.use((req, res, next) => {
   res.locals.NODE_ENV = NODE_ENV;
   next();
 });
-// Route handlers for different paths.
-// Each route sends a specific HTML file as a response.
-app.get("/");
-
-app.get("/organizations");
-
-app.get("/projects");
-
-app.get("/category");
 
 // 404 - page not found error page handler for all routes.
-app.use();
-
-// Test route for 500 errors
-app.use("/test-error", (req, res, next) => {
-  const err = new Error("This is a test error");
-  err.status = 500;
+app.use((req, res, next) => {
+  const err = new Error("Page Not Found");
+  err.status = 404;
   next(err);
 });
+
+// Test route for 500 errors
+app.use("/test-error");
 
 // Global error handler
 app.use((err, req, res, next) => {

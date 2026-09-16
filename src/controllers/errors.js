@@ -1,9 +1,10 @@
 //This si the error page
+
 const testErrorPage = (req, res, next) => {
-  const err = new Error("Page Not Found");
-  err.status = 404;
+  const err = new Error("This is a test error");
+  err.status = 500;
   next(err);
 };
 
-// testErrorPage exported
+// showTestErrorPage exported
 export { testErrorPage };
