@@ -22,5 +22,5 @@ const showOrganizationDetailsPage = async (req, res) => {
   res.render("organization", { title, organizationDetails, projects });
 };
 
-// showOrganizationsPage export.
+// Export showOrganizationsPage and showOrganizationDetailsPage.
 export { showOrganizationsPage, showOrganizationDetailsPage };
