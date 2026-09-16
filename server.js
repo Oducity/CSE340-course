@@ -2,6 +2,7 @@ import express from "express";
 import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get the current file path
 import path from "path"; // import path from "path" to get the current directory path
 import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
+import router from "./src/routes.js"; // This import the router object containing all route handlers.
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 /*
@@ -11,12 +12,12 @@ path.dirname() extracts just the directory portion. This recreates
 the same functionality that CommonJS provided automatically.
 */
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Define the port.
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//Define the environment and port
+//Define the environment.
 
 const app = express();
 
@@ -48,15 +49,15 @@ app.use((req, res, next) => {
   next();
 });
 
-// 404 - page not found error page handler for all routes.
+//  app uses the imported router to handel all routes.
+app.use(router);
+
+// Catch all routes for 404 errors.
 app.use((req, res, next) => {
   const err = new Error("Page Not Found");
   err.status = 404;
   next(err);
 });
-
-// Test route for 500 errors
-app.use("/test-error");
 
 // Global error handler
 app.use((err, req, res, next) => {
