@@ -48,5 +48,5 @@ const getProjectsByOrganizationId = async (organizationId) => {
   return result.rows.length > 0 ? result.rows : null; // Return the first row of the result set or null if no rows are found.
 };
 
-// Export the getAllProjects function so it can be imported and used in other parts of the application, such as in server.js to fetch and display project data.
+// Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
 export { getAllProjects, getProjectsByOrganizationId };
