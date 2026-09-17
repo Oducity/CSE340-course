@@ -23,7 +23,7 @@ router.get("/projects", showProjectsPage);
 router.get("/category", showCategoryPage);
 
 // Organization details page route
-router.get("/organization/: id", { showOrganizationDetailsPage });
+router.get("/organization/:id", showOrganizationDetailsPage);
 //Error handler route.
 router.get("/test-error", testErrorPage);
 

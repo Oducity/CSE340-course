@@ -104,6 +104,10 @@ main {
   padding: 0.5rem;
 }
 
+main .organization-details {
+  margin: 1.5rem auto;
+}
+
 main h1 {
   margin: 0 0 0.5rem;
   color: var(--color-heading);
@@ -119,6 +123,12 @@ main h2 {
   font-weight: 500;
 }
 
+main h3 {
+  margin: 3rem 0 1.5rem;
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 500;
+}
 main > p {
   max-width: 65ch;
   margin: 0 0 1.5rem;
