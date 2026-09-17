@@ -1,0 +1,25 @@
+<%-include('partials/header') %>
+<main>
+  <h1><%= title %></h1>
+  <div class="organization-details">
+    <section class="company-nameLogo">
+      <span className="company-logo-box">
+        <img class="main-logo"
+          src="../../images/<%= organizationDetails.logo_filename %>"
+          alt=""
+        />
+      </span>
+      <h2><%= organizationDetails.organization_name %></h2>
+    </section>
+    <p class="company-description"><%= organizationDetails.description %></p>
+    <section class="projects-details">
+      <h3>List of Projects By <%= organizationDetails.organization_name %></h3>
+      <ul class="list">
+        <% projects.forEach((project) => { %>
+            <li class="list"><a href="/project/<%= project.project_id %>"><%= project.title %> </a></li>
+        <% }) %>
+      </ul>
+    </section>
+  </div>
+</main>
+<%- include('partials/footer') %>

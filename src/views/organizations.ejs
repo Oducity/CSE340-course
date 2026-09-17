@@ -11,7 +11,13 @@
             src="/images/<%= organization.logo_filename %>"
             alt="<%= organization.organization_name %> logo"
           />
-          <span> <strong><%= organization.organization_name %></strong> :</span>
+          <span>
+            <strong>
+              <a href="/organization/<%= organization.organization_id %>">
+                <%= organization.organization_name %>
+              </a>
+            </strong> :
+          </span>
           <span><%= organization.organization_email %></span>
         </span>
         <span class="description"><%= organization.description %></span>
