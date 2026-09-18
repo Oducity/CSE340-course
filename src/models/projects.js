@@ -14,8 +14,8 @@ const getAllProjects = async () => {
     FROM projects
       INNER JOIN organizations
         ON projects.organization_id = organizations.organization_id
-    WHERE project_date > CURRENT_DATE
-    ORDER BY project_date ASC LIMIT 5;`;
+    WHERE projects.organization_id = organizations.organization_id
+    ORDER BY organization_name DSC;`;
   const result = await db.query(sqlQuery);
   return result.rows;
 };
