@@ -15,7 +15,7 @@ const getAllProjects = async () => {
       INNER JOIN organizations
         ON projects.organization_id = organizations.organization_id
     WHERE projects.organization_id = organizations.organization_id
-    ORDER BY organization_name DSC;`;
+    ORDER BY organization_name DESC;`;
   const result = await db.query(sqlQuery);
   return result.rows;
 };
@@ -49,7 +49,6 @@ const getProjectsByOrganizationId = async (organizationId) => {
   return result.rows.length > 0 ? result.rows : null; // Return the first row of the result set or null if no rows are found.
 };
 
-
 /**
  This function get next upcoming projects.
  */
@@ -75,8 +74,6 @@ const getUpcomingProjects = async (number_of_projects) => {
 
   return result.rows.length > 0 ? result.rows : null;
 };
-
-
 
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
 export { getAllProjects, getProjectsByOrganizationId, getUpcomingProjects };
