@@ -4,6 +4,8 @@ import db from "./db.js"; // import the database connection from db.js to intera
 // The function constructs a SQL query that selects the organization name, project title, description, location, and date from the projects table,
 // joining it with the organizations table based on the organization_id. It then executes the query using the db.query method and returns the resulting rows.
 const getAllProjects = async () => {
+  const date = new Date();
+  const formattedDate = new Intl.DateTimeFormat("en-CA").format(date);
   const sqlQuery = `
     SELECT
       organization_name AS "organization",
