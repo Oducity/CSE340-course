@@ -1,12 +1,21 @@
 <%- include('partials/header') %>
 <main>
   <h1><%= title %></h1>
-  <h2>Service Projects</h2>
+  <h2>Upcoming Projects</h2>
   <ul class="list">
     <% projects.forEach((project) => { %>
       <li class="project-item">
-        <p><strong>Organization Name:</strong> <span><%= project.organization %></span></p>
-        <p><strong>Project Title:</strong> <%= project.projectTitle %></p>
+        <p>
+          <strong>Organization Name:</strong>
+          <span>
+            <a href="/organization/<%= project.oganizationId %>"><%= project.organization %></a>
+          </span>
+        </p>
+        <p>
+          <strong>Project Title:</strong><span>
+            <a href="/project/<%= project.projectId %>"><%= project.projectTitle %></a>
+          </span> 
+        </p>
         <p><strong>Project Description:</strong> <%= project.projectDescription %></p>
         <p><strong>Project Location:</strong> <%= project.projectLocation %></p>
         <p><strong>Project Date:</strong> <%= project.projectDate %></p>

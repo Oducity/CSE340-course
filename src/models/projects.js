@@ -14,7 +14,8 @@ const getAllProjects = async () => {
     FROM projects
       INNER JOIN organizations
         ON projects.organization_id = organizations.organization_id
-    ORDER BY organizations.organization_name DESC;`;
+    WHERE projects.organization_id = organizations.organization_id
+    ORDER BY organization_name DESC;`;
   const result = await db.query(sqlQuery);
   return result.rows;
 };
@@ -48,5 +49,59 @@ const getProjectsByOrganizationId = async (organizationId) => {
   return result.rows.length > 0 ? result.rows : null; // Return the first row of the result set or null if no rows are found.
 };
 
+/**
+ This function get next upcoming projects.
+ */
+const getUpcomingProjects = async (number_of_projects) => {
+  const sqlQuery = `
+    SELECT
+      organization_name AS "organization",
+      project_id AS "projectId",
+      projects.title AS "projectTitle",
+      projects.description AS "projectDescription",
+      project_date AS "projectDate",
+      project_location AS "projectLocation",
+      projects.organization_id AS "oganizationId"
+    FROM projects
+      INNER JOIN organizations
+       ON projects.organization_id = organizations.organization_id
+    WHERE project_date >= CURRENT_DATE
+    ORDER BY project_date ASC LIMIT $1;
+  `;
+
+  const queryParams = [number_of_projects];
+  const result = await db.query(sqlQuery, queryParams);
+
+  return result.rows.length > 0 ? result.rows : null;
+};
+
+// This function model query the database for the details of a project.
+const getProjectDetails = async (projectId) => {
+  const sqlQuery = `
+    SELECT
+      project_id,
+      title AS "projectTitle",
+      projects.description AS "projectDescription",
+      project_date AS "projectDate",
+      project_location AS "projectLocation",
+      organizations.organization_id AS "organizationId",
+      organization_name AS "organizationName"
+    FROM projects
+      INNER JOIN organizations
+        ON projects.organization_id = organizations.organization_id
+    WHERE project_id = $1
+  ;`;
+
+  const queryParams = [projectId];
+  const result = await db.query(sqlQuery, queryParams);
+
+  return result.rows[0];
+};
+
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
-export { getAllProjects, getProjectsByOrganizationId };
+export {
+  getAllProjects,
+  getProjectsByOrganizationId,
+  getUpcomingProjects,
+  getProjectDetails,
+};

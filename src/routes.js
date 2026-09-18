@@ -1,11 +1,16 @@
 import express from "express";
 
 import { showHomePage } from "./controllers/index.js";
-import { showOrganizationsPage } from "./controllers/organizations.js";
-import { showProjectsPage } from "./controllers/projects.js";
+import {
+  showOrganizationsPage,
+  showOrganizationDetailsPage,
+} from "./controllers/organizations.js";
+import {
+  showProjectsPage,
+  showProjectDetailsPage,
+} from "./controllers/projects.js";
 import { showCategoryPage } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
-import { showOrganizationDetailsPage } from "./controllers/organizations.js";
 
 const router = express.Router();
 
@@ -18,6 +23,9 @@ router.get("/organizations", showOrganizationsPage);
 
 // Projects page route handler
 router.get("/projects", showProjectsPage);
+
+// Project page route handler by projectId
+router.get("/project/:id", showProjectDetailsPage);
 
 // Category page route handler
 router.get("/category", showCategoryPage);
