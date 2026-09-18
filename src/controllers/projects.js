@@ -3,7 +3,7 @@ import { getAllProjects } from "../models/projects.js"; // import getAllProjects
 
 const showProjectsPage = async (req, res) => {
   const projects = await getAllProjects(); // Fetch all projects from the database
-  const title = "Service Projects";
+  const title = "Upcoming Projects";
   res.render("projects", { title, projects }); // Render the "projects" view and pass the title and projects data to the template
 };
 
