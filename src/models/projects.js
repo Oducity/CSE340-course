@@ -76,7 +76,7 @@ const getUpcomingProjects = async (number_of_projects) => {
 };
 
 // This function model query the database for the details of a project.
-const getProjectDetail = async (projectId) => {
+const getProjectDetails = async (projectId) => {
   const sqlQuery = `
     SELECT
       project_id,
@@ -103,5 +103,5 @@ export {
   getAllProjects,
   getProjectsByOrganizationId,
   getUpcomingProjects,
-  getProjectDetail,
+  getProjectDetails,
 };
