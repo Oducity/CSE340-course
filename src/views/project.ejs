@@ -1,7 +1,30 @@
 <%- include('partials/header') %>
 <main>
   <h1><%= title %></h1>
-  <h2>Details</h2>
-  <ul></ul>
+  <section>
+    <h2>Details</h2>
+    <ul class="list">
+      <li>
+        <Strong>Organization : </Strong>
+        <span> <%= projectDetails.organizationName %> </span>
+      </li>
+      <li>
+        <Strong>Title :</Strong>
+        <span> <%= projectDetails.projectTitle %> </span>
+      </li>
+      <li>
+        <Strong>Project Description : </Strong>
+        <span> <%= projectDetails.projectDescription %> </span>
+      </li>
+      <li>
+        <Strong>Project Location : </Strong>
+        <span> <%= projectDetails.projectLocation %> </span>
+      </li>
+      <li>
+        <Strong>Project Date : </Strong>
+        <span> <%= projectDetails.projectDate %> </span>
+      </li>
+    </ul>
+  </section>
 </main>
 <%- include('partials/footer') %>

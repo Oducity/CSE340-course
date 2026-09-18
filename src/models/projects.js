@@ -55,13 +55,13 @@ const getProjectsByOrganizationId = async (organizationId) => {
 const getUpcomingProjects = async (number_of_projects) => {
   const sqlQuery = `
     SELECT
-      project_id,
-      title,
-      description,
-      project_date,
-      project_location,
-      organization_id,
-      organization_name
+      organization_name AS "organization",
+      project_id AS "projectId",
+      projects.title AS "projectTitle",
+      projects.description AS "projectDescription",
+      project_date AS "projectDate",
+      project_location AS "projectLocation",
+      projects.organization_id AS "oganizationId"
     FROM projects
       INNER JOIN organizations
        ON projects.organization_id = organizations.organization_id
@@ -80,12 +80,12 @@ const getProjectDetails = async (projectId) => {
   const sqlQuery = `
     SELECT
       project_id,
-      title,
-      description,
-      project_date,
-      project_location,
-      organization_id,
-      organization_name
+      title AS "projectTitle",
+      projects.description AS "projectDescription",
+      project_date AS "projectDate",
+      project_location AS "projectLocation",
+      organizations.organization_id AS "organizationId",
+      organization_name AS "organizationName"
     FROM projects
       INNER JOIN organizations
         ON projects.organization_id = organizations.organization_id
@@ -95,7 +95,7 @@ const getProjectDetails = async (projectId) => {
   const queryParams = [projectId];
   const result = await db.query(sqlQuery, queryParams);
 
-  return result.rows > 0 ? result.rows : null;
+  return result.rows[0];
 };
 
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.

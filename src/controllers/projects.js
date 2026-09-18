@@ -18,7 +18,7 @@ const showProjectDetailsPage = async (req, res) => {
   const projectId = req.params.id;
   const projectDetails = await getProjectDetails(projectId);
   const title = "Project Details";
-  res.render("projects", projectDetails);
+  res.render("project", { title, projectDetails });
 };
 
 // showProjectsPage exported.

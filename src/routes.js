@@ -25,7 +25,7 @@ router.get("/organizations", showOrganizationsPage);
 router.get("/projects", showProjectsPage);
 
 // Project page route handler by projectId
-router.get("/projects", showProjectDetailsPage);
+router.get("/project/:id", showProjectDetailsPage);
 
 // Category page route handler
 router.get("/category", showCategoryPage);
