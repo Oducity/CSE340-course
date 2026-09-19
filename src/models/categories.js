@@ -2,8 +2,13 @@ import db from "./db.js";
 
 // This function get all categories data from the database.
 const getAllCategories = async () => {
-  const sqlQuery = `SELECT category_name, category_description, created_at
-                FROM category;`;
+  const sqlQuery = `
+    SELECT
+      category_id,
+      category_name,
+      category_description,
+      created_at
+    FROM category;`;
   const { rows } = await db.query(sqlQuery);
   return rows;
 };
