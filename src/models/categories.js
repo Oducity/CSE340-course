@@ -8,24 +8,17 @@ const getAllCategories = async () => {
   return rows;
 };
 
-// Using the id object, this function get a single category data from the database
-const getCategoryRelatedProjects = async (categoryId) => {
+// This function get the category id
+const getCategoryDetailsById = (categoryId) => {
   const sqlQuery = `
     SELECT
-      category_name,
-      projects.project_id,
-      projects.project_name
+      category_id,
+      category_name
     FROM category
-      INNER JOIN projects_category 
-        ON projects_category.category_id = category.category_id
-      INNER JOIN projects
-        ON projects.project_id = projects_category.project_id
-    WHERE category_id = $1
-    ORDER BY projects.project_date ASC;
+    WHERE category_id = $1;
   `;
-
-  const queryParams = [categoryId]; // Get the category id from the input.
-  const result = db.query(sqlQuery, queryParams); // Query the database allowing the database to compare for the categoryId on its own for safety.
-  return result.rows > 0 ? result.rows[0] : null; // Check and return the result row if the rows found is greater than 0.
+  const idOfCategory = [categoryId];
+  const result = db.query(sqlQuery, idOfCategory);
+  return result.rows > 0 ? result.rows[0] : null;
 };
-export { getAllCategories, getCategoryRelatedProjects };
+export { getAllCategories, getCategoryDetailsById };
