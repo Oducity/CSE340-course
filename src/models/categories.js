@@ -7,6 +7,7 @@ const getAllCategories = async () => {
       category_id,
       category_name,
       category_description,
+      category_tag
       created_at
     FROM category;`;
   const { rows } = await db.query(sqlQuery);
@@ -18,7 +19,8 @@ const getCategoryDetailsById = async (categoryId) => {
   const sqlQuery = `
     SELECT
       category_id,
-      category_name
+      category_name,
+      category_tag
     FROM category
     WHERE category_id = $1;
   `;

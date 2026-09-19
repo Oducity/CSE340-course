@@ -4,6 +4,15 @@
   <section>
     <h2>Details</h2>
     <ul class="list">
+      <li class="tag-box">
+        <% categoryTag.forEach((tag) => { %>
+          <span>
+            <a href="/category/<%= tag.categoryId %>">
+              <%- tag.category_tag %>
+            </a>
+          </span>
+        <% }) %>
+      </li>
       <li>
         <Strong>Organization : </Strong>
         <span> <%= projectDetails.organizationName %> </span>
