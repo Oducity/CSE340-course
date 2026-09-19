@@ -164,6 +164,13 @@ main ul.list li {
     box-shadow 0.2s ease;
 }
 
+main ul.list li.tag-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 3.5rem;
+}
+
 main ul.list li.project-item p,
 main ul.list li.product-item h3 {
   display: flex;

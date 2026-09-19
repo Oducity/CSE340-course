@@ -6,7 +6,11 @@
   <ul class="list">
     <% categories.forEach((category) => { %>
       <li class="category-item">
-        <span><strong><%= category.category_name %></strong></span>
+        <span>
+          <strong>
+            <a href="/category/<%= category.category_id %>"><%= category.category_name %></a>
+          </strong>
+        </span>
         <span> <%= category.category_description %></span>
       </li>
     <% }); %>

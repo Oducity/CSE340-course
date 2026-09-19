@@ -98,10 +98,53 @@ const getProjectDetails = async (projectId) => {
   return result.rows[0];
 };
 
+// Using the id object, this function get all category related projects data from the database
+const getProjectsDetailsByCategoryId = async (categoryId) => {
+  const sqlQuery = `
+    SELECT
+      category_name,
+      projects.project_id AS "projectId",
+      projects.title AS "projectTitle",
+      category_tag
+    FROM category
+      INNER JOIN projects_category 
+        ON projects_category.category_id = category.category_id
+      INNER JOIN projects
+        ON projects.project_id = projects_category.project_id
+    WHERE projects_category.category_id = $1
+    ORDER BY projects.project_date ASC;
+  `;
+
+  const queryParams = [categoryId]; // Get the category id from the input.
+  const result = await db.query(sqlQuery, queryParams); // Query the database allowing the database to compare for the categoryId on its own for safety.
+  return result.rows.length > 0 ? result.rows : null; // Check and return the result row if the rows found is greater than 0.
+};
+
+const getAllCategoryTagsByProjectId = async (projectId) => {
+  const sqlQuery = `
+    SELECT
+      projects.project_id AS "projectId",
+      category.category_id AS "categoryId",
+      category_tag
+    FROM category
+      INNER JOIN projects_category
+        ON projects_category.category_id = category.category_id
+      INNER JOIN projects
+        ON projects.project_id = projects_category.project_id
+    WHERE projects_category.project_id = $1
+    ORDER BY category.category_id;
+  `;
+  const queryParams = [projectId];
+  const result = await db.query(sqlQuery, queryParams);
+  return result.rows.length > 0 && result.rows.length <= 4 ? result.rows : null;
+};
+
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
 export {
   getAllProjects,
   getProjectsByOrganizationId,
   getUpcomingProjects,
   getProjectDetails,
+  getProjectsDetailsByCategoryId,
+  getAllCategoryTagsByProjectId,
 };

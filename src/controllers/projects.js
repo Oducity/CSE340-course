@@ -3,6 +3,8 @@ import {
   getAllProjects,
   getUpcomingProjects,
   getProjectDetails,
+  getProjectsDetailsByCategoryId,
+  getAllCategoryTagsByProjectId,
 } from "../models/projects.js"; // import getAllProjects from projects.js to get all projects from the database
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
@@ -17,8 +19,13 @@ const showProjectsPage = async (req, res) => {
 const showProjectDetailsPage = async (req, res) => {
   const projectId = req.params.id;
   const projectDetails = await getProjectDetails(projectId);
+  const categoryTag = await getAllCategoryTagsByProjectId(projectId);
   const title = "Project Details";
-  res.render("project", { title, projectDetails });
+  res.render("project", {
+    title,
+    projectDetails,
+    categoryTag,
+  });
 };
 
 // showProjectsPage exported.
