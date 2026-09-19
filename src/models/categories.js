@@ -14,7 +14,7 @@ const getAllCategories = async () => {
 };
 
 // This function get the category id
-const getCategoryDetailsById = (categoryId) => {
+const getCategoryDetailsById = async (categoryId) => {
   const sqlQuery = `
     SELECT
       category_id,
@@ -23,7 +23,7 @@ const getCategoryDetailsById = (categoryId) => {
     WHERE category_id = $1;
   `;
   const idOfCategory = [categoryId];
-  const result = db.query(sqlQuery, idOfCategory);
-  return result.rows > 0 ? result.rows[0] : null;
+  const result = await db.query(sqlQuery, idOfCategory);
+  return result.rows.length > 0 ? result.rows[0] : null;
 };
 export { getAllCategories, getCategoryDetailsById };

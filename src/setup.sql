@@ -359,3 +359,20 @@ VALUES
 	(29, 3),
 	(29, 4),
 	(30, 3);
+
+ALTER TABLE category ADD COLUMN category_tag TEXT;
+UPDATE category
+SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23e0f2f1'/%3E%3Cpath d='M5 19C5 10 10 5 19 5c0 9-5 14-14 14z' fill='%2300897b'/%3E%3Cpath d='M5 19L13 11' stroke='%23e0f2f1' stroke-width='1.5' fill='none'/%3E%3C/svg%3E" alt="Environmental" width="24" height="24">$$
+WHERE category_id = 1;
+
+UPDATE category
+SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23e8eaf6'/%3E%3Cpath d='M12 5L3 9.5l9 4.5 9-4.5z' fill='%233949ab'/%3E%3Cpath d='M7 12.5v3.5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-3.5l-5 2.5z' fill='%233949ab'/%3E%3C/svg%3E" alt="Educational" width="24" height="24">$$
+WHERE category_id = 2;
+
+UPDATE category
+SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23fff3e0'/%3E%3Ccircle cx='12' cy='8' r='2.5' fill='%23ef6c00'/%3E%3Cpath d='M7.5 18c0-3 2-5 4.5-5s4.5 2 4.5 5z' fill='%23ef6c00'/%3E%3Ccircle cx='5.5' cy='10' r='1.8' fill='%23ef6c00'/%3E%3Cpath d='M2 17c0-2 1.6-3.5 3.5-3.5S9 15 9 17z' fill='%23ef6c00'/%3E%3Ccircle cx='18.5' cy='10' r='1.8' fill='%23ef6c00'/%3E%3Cpath d='M15 17c0-2 1.6-3.5 3.5-3.5S22 15 22 17z' fill='%23ef6c00'/%3E%3C/svg%3E" alt="Community Service" width="24" height="24">$$
+WHERE category_id = 3;
+
+UPDATE category
+SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23e8f5e9'/%3E%3Cpath d='M10 5h4v5h5v4h-5v5h-4v-5H5v-4h5z' fill='%232e7d32'/%3E%3C/svg%3E" alt="Health" width="24" height="24">$$
+WHERE category_id = 4;
