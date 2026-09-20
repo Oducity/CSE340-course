@@ -16,11 +16,18 @@ const showProjectsPage = async (req, res) => {
   res.render("projects", { title, projects }); // Render the "projects" view and pass the title and projects data to the template
 };
 
-const showProjectDetailsPage = async (req, res) => {
+const showProjectDetailsPage = async (req, res, next) => {
   const projectId = req.params.id;
   const projectDetails = await getProjectDetails(projectId);
-  const categoryTag = await getAllCategoryTagsByProjectId(projectId);
+  const tag = await getAllCategoryTagsByProjectId(projectId);
+  const categoryTag = tag === null ? [] : tag;
   const title = "Project Details";
+
+  if (projectDetails === null) {
+    const err = new Error("Project Details Not Found");
+    err.status = 404;
+    return next(err);
+  }
   res.render("project", {
     title,
     projectDetails,
