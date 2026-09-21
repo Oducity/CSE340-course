@@ -62,8 +62,8 @@ const createOrganization = async (
   const sqlQuery = `
     INSERT INTO organizations (
       organization_name,
-      organization_email,
       description,
+      organization_email,
       logo_filename
 	)
     VALUES($1, $2, $3, $4)

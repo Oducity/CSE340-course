@@ -14,6 +14,7 @@
   --color-border: #e2e8f0;
   --color-nav-bg: #0f172a;
   --color-nav-text: #e2e8f0;
+  --color-btn-background: #d4ecf7;
 
   --font-base:
     system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -141,7 +142,8 @@ main > p {
 }
 
 /* List pages: Organizations / Projects / Categories -------------------------- */
-main ul.list {
+main ul.list,
+form {
   display: grid;
   gap: 1rem;
   margin: 0;
@@ -149,7 +151,39 @@ main ul.list {
   list-style: none;
 }
 
-main ul.list li {
+.form-group label {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: large;
+}
+
+form .form-group input {
+  min-height: 48px;
+  font-size: large;
+  padding: 1rem 0.5rem 0;
+}
+
+form .form-group textarea {
+  min-height: 5rem;
+  font-size: large;
+  padding: 1rem 0.5rem 0;
+}
+
+form button {
+  background-color: var(--color-btn-background);
+  font-weight: 600;
+  font-size: 1rem;
+  min-height: 44px;
+  color: var(--color-heading);
+  border-radius: var(--radius);
+}
+
+main ul.list li,
+.add-org,
+form .form-group {
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -162,6 +196,15 @@ main ul.list li {
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
+}
+
+.add-org {
+  background-color: var(--color-btn-background);
+  font-weight: 600;
+  font-size: 1.2rem;
+  a {
+    color: var(--color-heading);
+  }
 }
 
 main ul.list li.tag-box {

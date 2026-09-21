@@ -46,7 +46,7 @@ const getProjectsByOrganizationId = async (organizationId) => {
   const queryParams = [organizationId]; // The user input value contained in organizationId is stored in a variable called queryParams.
   const result = await db.query(sqlQuery, queryParams); // The queryParams is passed to the database to be safely substituted for
   // the organization_id in the WHERE clause by the database itself for safe and secure query/filter
-  return result.rows.length > 0 ? result.rows : null; // Return the first row of the result set or null if no rows are found.
+  return result.rows.length > 0 ? result.rows : []; // Return the first row of the result set or null if no rows are found.
 };
 
 /**
