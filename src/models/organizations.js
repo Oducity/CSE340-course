@@ -43,4 +43,46 @@ const getOrganizationDetails = async (organizationId) => {
   // Return the first row of the result set or null if no rows are found.
   return result.rows.length > 0 ? result.rows[0] : null;
 };
-export { getAllOrganizations, getOrganizationDetails };
+
+/**
+ * Creates a new organization in the database.
+ * @param {string} name - The name of the organization.
+ * @param {string} description - The description of the organization.
+ * @param {string} contactEmail - Th contact email of the organization.
+ * @param {string} logoFilename - The file name of the organization logo
+ * @returns {string} The id of the newly created organization record
+ */
+
+const createOrganization = async (
+  name,
+  description,
+  contactEmail,
+  logoFilename,
+) => {
+  const sqlQuery = `
+    INSERT INTO organizations (
+      organization_name,
+      organization_email,
+      description,
+      logo_filename
+	)
+    VALUES($1, $2, $3, $4)
+    RETURNING organization_id
+  `;
+  const queryParams = [name, description, contactEmail, logoFilename];
+  const result = await db.query(sqlQuery, queryParams);
+
+  if (result.rows.length === 0) {
+    throw new Error("Failed to create organization");
+  }
+
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log(
+      "Created new organization with ID:",
+      result.rows[0].organization_id,
+    );
+  }
+
+  return result.rows[0].organization_id;
+};
+export { getAllOrganizations, getOrganizationDetails, createOrganization };

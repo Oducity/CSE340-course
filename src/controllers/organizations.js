@@ -2,6 +2,7 @@
 import {
   getAllOrganizations,
   getOrganizationDetails,
+  createOrganization,
 } from "../models/organizations.js"; // import getAllOrganizations from organizations.js to get all organizations from the database
 import { getProjectsByOrganizationId } from "../models/projects.js";
 
@@ -22,13 +23,31 @@ const showOrganizationDetailsPage = async (req, res) => {
   res.render("organization", { title, organizationDetails, projects });
 };
 
+// This controller shows form for creating mew organization
 const showNewOrganizationForm = async (req, res) => {
   const title = "Add New Organization";
   res.render("new-organization", { title });
 };
-// Export showOrganizationsPage and showOrganizationDetailsPage.
+
+// This controller processes new organization
+const processNewOrganizationForm = async (req, res) => {
+  const { name, description, contactEmail } = req.body;
+
+  const logoFilename = "placeholder-logo.png";
+
+  const organizationId = await createOrganization(
+    name,
+    description,
+    contactEmail,
+    logoFilename,
+  );
+
+  res.redirect(`/organization/${organizationId}`);
+};
+
 export {
   showOrganizationsPage,
   showOrganizationDetailsPage,
   showNewOrganizationForm,
+  processNewOrganizationForm,
 };

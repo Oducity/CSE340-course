@@ -49,6 +49,10 @@ app.use((req, res, next) => {
   next();
 });
 
+// Allow express to receive and process common POST data.
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //  app uses the imported router to handel all routes.
 app.use(router);
 
