@@ -19,15 +19,21 @@ const showProjectsPage = async (req, res) => {
 const showProjectDetailsPage = async (req, res, next) => {
   const projectId = req.params.id;
   const projectDetails = await getProjectDetails(projectId);
-  const tag = await getAllCategoryTagsByProjectId(projectId);
-  const categoryTag = tag === null ? [] : tag;
-  const title = "Project Details";
+  const categoryTag = await getAllCategoryTagsByProjectId(projectId);
+
+  if (categoryTag === "compromised") {
+    const err = new Error("Server Error");
+    err.status = 500;
+    return next(err);
+  }
 
   if (projectDetails === null) {
     const err = new Error("Project Details Not Found");
     err.status = 404;
     return next(err);
   }
+
+  const title = "Project Details";
   res.render("project", {
     title,
     projectDetails,

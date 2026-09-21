@@ -136,7 +136,12 @@ const getAllCategoryTagsByProjectId = async (projectId) => {
   `;
   const queryParams = [projectId];
   const result = await db.query(sqlQuery, queryParams);
-  return result.rows.length > 0 && result.rows.length <= 4 ? result.rows : null;
+
+  return result.rows.length > 4
+    ? "compromised"
+    : result.rows.length > 0
+      ? result.rows
+      : [];
 };
 
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
