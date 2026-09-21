@@ -22,5 +22,13 @@ const showOrganizationDetailsPage = async (req, res) => {
   res.render("organization", { title, organizationDetails, projects });
 };
 
+const showNewOrganizationForm = async (req, res) => {
+  const title = "Add New Organization";
+  res.render("new-organization", { title });
+};
 // Export showOrganizationsPage and showOrganizationDetailsPage.
-export { showOrganizationsPage, showOrganizationDetailsPage };
+export {
+  showOrganizationsPage,
+  showOrganizationDetailsPage,
+  showNewOrganizationForm,
+};

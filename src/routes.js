@@ -4,6 +4,7 @@ import { showHomePage } from "./controllers/index.js";
 import {
   showOrganizationsPage,
   showOrganizationDetailsPage,
+  showNewOrganizationForm,
 } from "./controllers/organizations.js";
 import {
   showProjectsPage,
@@ -38,6 +39,9 @@ router.get("/category/:id", showCategoryDetailsPage);
 
 // Organization details page route
 router.get("/organization/:id", showOrganizationDetailsPage);
+
+// The route handler for new-organization form
+router.get("/new-organization", showNewOrganizationForm);
 //Error handler route.
 router.get("/test-error", testErrorPage);
 
