@@ -37,6 +37,16 @@ app.set("view engine", "ejs");
 // Set the directory for view templates to "src/views".
 app.set("views", path.join(__dirname, "src/views"));
 
+// Set session middleware --- This middleware must come before all other middleware
+app.use(
+  session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 }, // Session express after 1 hour of inactivity
+  }),
+);
+
 // Set a middleware that log the development mode
 app.use((req, res, next) => {
   if (NODE_ENV === "development") {
