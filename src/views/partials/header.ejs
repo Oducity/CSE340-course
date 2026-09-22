@@ -23,4 +23,12 @@
         </li>
       </ul>
     </nav>
+    <% const messages = flash(); %>
+    <% object.keys(messages).forEach(type => { %>
+      <% if (messages[type].length > 0) { %>
+        <% messages[type].forEach(msg => {
+          <%= msg %>
+        <% }); %>
+      <% } %>
+    <% }); %>
   
