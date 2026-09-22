@@ -37,7 +37,10 @@ app.set("view engine", "ejs");
 // Set the directory for view templates to "src/views".
 app.set("views", path.join(__dirname, "src/views"));
 
-// Set session middleware --- This middleware must come before all other middleware
+// Set session middleware --- This middleware must come before all other middleware.
+// This code sets up session management with a secret key for signing the session ID cookie.
+// The resave and saveUninitialized options control session saving behavior,
+// and the cookie.maxAge option sets the session expiration time.
 app.use(
   session({
     secret: SESSION_SECRET,
@@ -46,6 +49,8 @@ app.use(
     cookie: { maxAge: 60 * 60 * 1000 }, // Session express after 1 hour of inactivity
   }),
 );
+// You can now access session data via req.session in your routes and middleware.
+// Keep your SESSION_SECRET private and never commit your .env file to version control.
 
 // Set a middleware that log the development mode
 app.use((req, res, next) => {
