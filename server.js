@@ -4,7 +4,6 @@ import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get t
 import path from "path"; // import path from "path" to get the current directory path
 import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
 import router from "./src/routes.js"; // This import the router object containing all route handlers.
-import session from "express-session";
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 const SESSION_SECRET = process.env.SESSION_SECRET;
