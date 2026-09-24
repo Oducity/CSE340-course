@@ -1,10 +1,11 @@
 import express from "express";
+import "dotenv/config";
 import session from "express-session";
+import flash from "./src/middleware/flash.js";
 import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get the current file path
 import path from "path"; // import path from "path" to get the current directory path
 import { testConnection } from "./src/models/db.js"; // import testConnection from db.js to test the database connection
 import router from "./src/routes.js"; // This import the router object containing all route handlers.
-import session from "express-session";
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "development";
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -51,6 +52,10 @@ app.use(
 );
 // You can now access session data via req.session in your routes and middleware.
 // Keep your SESSION_SECRET private and never commit your .env file to version control.
+
+// Use flash message middleware -- This must be used after the session middleware
+// so that session will be available to it
+app.use(flash);
 
 // Set a middleware that log the development mode
 app.use((req, res, next) => {
