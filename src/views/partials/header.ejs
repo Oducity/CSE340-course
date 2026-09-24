@@ -27,7 +27,9 @@
     <% Object.keys(messages).forEach(type => { %>
       <% if(messages[type].length > 0) { %>
         <% messages[type].forEach((msg) => { %>
-          <%= msg %>;
+          <span class="alert <%= type %>">
+            <%= msg %>
+          </span>
         <% }); %>
       <% }; %>
     <% }); %>

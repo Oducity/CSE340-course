@@ -15,7 +15,7 @@
   --color-nav-bg: #0f172a;
   --color-nav-text: #e2e8f0;
   --color-btn-background: ;
-  --color-alert-success-text: #155724;
+  --color-alert-success-text: #025e18;
   --color-alert-success-background: #d4edda;
   --color-alert-success-border: #b7e6c2;
   --color-alert-error-text: #6b1921;
@@ -115,6 +115,8 @@ nav a:focus {
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
+  text-align: center;
+  
 }
 .alert.success {
   color: var(--color-alert-success-text);
