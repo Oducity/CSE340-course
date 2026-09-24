@@ -1,4 +1,5 @@
 import express from "express";
+import "dotenv/config";
 import session from "express-session";
 import flash from "./src/middleware/flash.js";
 import { fileURLToPath } from "url"; // import fileURLToPath from "url" to get the current file path
