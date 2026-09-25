@@ -55,11 +55,15 @@ router.post(
   "/new-organization",
   organizationValidation,
   processNewOrganizationForm,
-); //************************************* */
+);
 
 // This route handles the form page and the controller that
 // controls the model for editing the organization in the database
-router.post("/edit-organization/:id", processEditOrganizationForm);
+router.post(
+  "/edit-organization/:id",
+  organizationValidation,
+  processEditOrganizationForm,
+);
 //Error handler route.
 router.get("/test-error", testErrorPage);
 

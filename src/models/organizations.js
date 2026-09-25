@@ -85,4 +85,44 @@ const createOrganization = async (
 
   return result.rows[0].organization_id;
 };
-export { getAllOrganizations, getOrganizationDetails, createOrganization };
+
+// This model updates the organization in the database.
+const updateOrganization = async (
+  organizationId,
+  organization_name,
+  description,
+  organizationEmail,
+  logoFilename,
+) => {
+  const sqlUpdate = `
+    UPDATE organizations
+    SET organization_name = $1, description = $2, organization_email = $3, logo_filename = $4
+    WHERE organization_id = $5
+    RETURNING organization_id;
+  `;
+  const queryParams = [
+    organization_name,
+    description,
+    organizationEmail,
+    logoFilename,
+    organizationId,
+  ];
+
+  const results = await db.query(sqlUpdate, queryParams);
+
+  if (results.rows.length === 0) {
+    throw new Error("Organization not found");
+  }
+
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log("Updated organization with ID: ", organizationId);
+  }
+
+  return results.rows[0].organization_id;
+};
+export {
+  getAllOrganizations,
+  getOrganizationDetails,
+  createOrganization,
+  updateOrganization,
+};
