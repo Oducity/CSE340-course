@@ -1,4 +1,5 @@
 // This is the organization page
+import { body, validationResult } from "express-validator";
 import {
   getAllOrganizations,
   getOrganizationDetails,
@@ -50,12 +51,22 @@ const showNewOrganizationForm = async (req, res) => {
   res.render("new-organization", { title });
 };
 
-// This controller processes new organization
+//************* */ This controller processes new organization  ********************
 const processNewOrganizationForm = async (req, res) => {
+  // Check for validation errors.
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // If validation failed then through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+
+    // Redirect back to the new organization form.
+    return res.redirect("/new-organization");
+  }
+
   const { name, description, contactEmail } = req.body;
-
   const logoFilename = "placeholder-logo.png";
-
   const organizationId = await createOrganization(
     name,
     description,
