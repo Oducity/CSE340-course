@@ -87,11 +87,28 @@ const showEditOrganizationForm = async (req, res) => {
   res.render("edit-organization", { title, organizationDetails });
 };
 
+const processEditOrganizationForm = async (req, res) => {
+  const organizationId = req.params.id;
+  const { organization_name, description, organizationEmail, logoFilename } =
+    req.body;
+  await updateOrganization(
+    organizationId,
+    organization_name,
+    description,
+    organizationEmail,
+    logoFilename,
+  );
+
+  req.flash("Success", "Organization updated successfully!");
+  res.redirect(`/organization/${organizationId}`);
+};
+
 export {
   showOrganizationsPage,
   showOrganizationDetailsPage,
   showNewOrganizationForm,
   processNewOrganizationForm,
   showEditOrganizationForm,
+  processEditOrganizationForm,
   organizationValidation,
 };

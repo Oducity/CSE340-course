@@ -8,6 +8,7 @@ import {
   processNewOrganizationForm,
   organizationValidation,
   showEditOrganizationForm,
+  processEditOrganizationForm,
 } from "./controllers/organizations.js";
 import {
   showProjectsPage,
@@ -55,6 +56,10 @@ router.post(
   organizationValidation,
   processNewOrganizationForm,
 ); //************************************* */
+
+// This route handles the form page and the controller that
+// controls the model for editing the organization in the database
+router.post("/edit-organization/:id", processEditOrganizationForm);
 //Error handler route.
 router.get("/test-error", testErrorPage);
 
