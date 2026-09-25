@@ -1,10 +1,32 @@
 // This is the organization page
+import { body, validationResult } from "express-validator";
 import {
   getAllOrganizations,
   getOrganizationDetails,
   createOrganization,
 } from "../models/organizations.js"; // import getAllOrganizations from organizations.js to get all organizations from the database
 import { getProjectsByOrganizationId } from "../models/projects.js";
+
+const organizationValidation = [
+  body("name")
+    .trim()
+    .notEmpty()
+    .withMessage("Organization name is required")
+    .isLength({ min: 3, max: 150 })
+    .withMessage("Organization name must be between 3 and 150 characters."),
+  body("description")
+    .trim()
+    .notEmpty()
+    .withMessage("Organization description is required")
+    .isLength({ max: 500 })
+    .withMessage("Organization description can not exceed 500 characters."),
+  body("contactEmail")
+    .trim()
+    .notEmpty()
+    .withMessage("Contact email is required")
+    .isEmail()
+    .withMessage("Please provide a valid email address."),
+];
 
 const showOrganizationsPage = async (req, res) => {
   const organizations = await getAllOrganizations(); // Fetch all organizations from the database
@@ -29,12 +51,22 @@ const showNewOrganizationForm = async (req, res) => {
   res.render("new-organization", { title });
 };
 
-// This controller processes new organization
+//************* */ This controller processes new organization  ********************
 const processNewOrganizationForm = async (req, res) => {
+  // Check for validation errors.
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // If validation failed then through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+
+    // Redirect back to the new organization form.
+    return res.redirect("/new-organization");
+  }
+
   const { name, description, contactEmail } = req.body;
-
   const logoFilename = "placeholder-logo.png";
-
   const organizationId = await createOrganization(
     name,
     description,
@@ -51,4 +83,5 @@ export {
   showOrganizationDetailsPage,
   showNewOrganizationForm,
   processNewOrganizationForm,
+  organizationValidation,
 };

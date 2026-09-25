@@ -116,7 +116,6 @@ nav a:focus {
   border: 1px solid transparent;
   border-radius: 4px;
   text-align: center;
-  
 }
 .alert.success {
   color: var(--color-alert-success-text);
@@ -215,12 +214,13 @@ form .form-group textarea {
 }
 
 form button {
-  background-color: var(--color-btn-background);
+  background-color: var(--color-nav-bg);
   font-weight: 600;
   font-size: 1rem;
   min-height: 44px;
-  color: var(--color-heading);
+  color: var(--color-nav-text);
   border-radius: var(--radius);
+  cursor: pointer;
 }
 
 main ul.list li,
