@@ -223,6 +223,17 @@ form button {
   cursor: pointer;
 }
 
+.edit {
+  padding: 0.5rem 0.5rem;
+  background-color: var(--color-alert-error-border);
+  color: var(--color-alert-error-text);
+  border: 1px transparent var(--color-alert-error-text);
+  border-radius: var(--radius);
+}
+
+span.edit a.edit-link {
+  color: var(--color-alert-error-text);
+}
 main ul.list li,
 .add-org,
 form .form-group {

@@ -78,10 +78,20 @@ const processNewOrganizationForm = async (req, res) => {
   res.redirect(`/organization/${organizationId}`);
 };
 
+// The controller process the organization to be edited
+const showEditOrganizationForm = async (req, res) => {
+  const organizationId = req.params.id;
+  const organizationDetails = await getOrganizationDetails(organizationId);
+
+  const title = "Edit Organization";
+  res.render("edit-organization", { title, organizationDetails });
+};
+
 export {
   showOrganizationsPage,
   showOrganizationDetailsPage,
   showNewOrganizationForm,
   processNewOrganizationForm,
+  showEditOrganizationForm,
   organizationValidation,
 };
