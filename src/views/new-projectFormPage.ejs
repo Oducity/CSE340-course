@@ -42,7 +42,7 @@
     <div class="form-group">
       <label for="organization_id">Organization Name</label>
       <select name="organization_id" id="organization_id" required>
-        <% allOrganizations.forEach((organization) => { %>
+        <% allOrganization.forEach((organization) => { %>
             <option value="<%= organization.organization_id %>">
                 <%= organization.organization_name %>
             </option>
