@@ -3,7 +3,11 @@ import {
   getAllCategories,
   getCategoryDetailsById,
 } from "../models/categories.js"; // import getAllCategories from categories.js to get all categories from the database
-import { getProjectsDetailsByCategoryId } from "../models/projects.js";
+import {
+  getProjectsDetailsByCategoryId,
+  getProjectDetails,
+  getAllCategoryTagsByProjectId,
+} from "../models/projects.js";
 
 const showCategoryPage = async (req, res) => {
   const categories = await getAllCategories(); // Fetch all categories from the database
@@ -19,5 +23,21 @@ const showCategoryDetailsPage = async (req, res) => {
   res.render("category", { title, categoryDetail, categoryProjects });
 };
 
+const showAssignCategoriesForm = async (req, res) => {
+  const projectId = req.params.id;
+  const projectDetails = await getProjectDetails();
+  const allCategories = await getAllCategories();
+  const allCategoriesByProjectId =
+    await getAllCategoryTagsByProjectId(projectId);
+
+  const title = "Assign Categories to Projects";
+  res.render("assign-categories", {
+    title,
+    projectDetails,
+    allCategories,
+    allCategoriesByProjectId,
+  });
+};
+
 // showCategoryPage exported.
-export { showCategoryPage, showCategoryDetailsPage };
+export { showCategoryPage, showCategoryDetailsPage, showAssignCategoriesForm };
