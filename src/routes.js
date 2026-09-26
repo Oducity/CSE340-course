@@ -50,6 +50,9 @@ router.get("/new-organization", showNewOrganizationForm);
 //The route for to show edit organization form
 router.get("/edit-organization/:id", showEditOrganizationForm);
 
+//The route for new-project form display
+router.get("/new-projectFormPage", );
+
 // Route to handle the new organization form submission
 router.post(
   "/new-organization",
