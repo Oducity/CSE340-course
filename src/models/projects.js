@@ -144,6 +144,53 @@ const getAllCategoryTagsByProjectId = async (projectId) => {
       : [];
 };
 
+// This model insert a new service project into the database
+const createProject = async (
+  organization_id,
+  title,
+  description,
+  project_location,
+  project_date,
+) => {
+  const sqlQuery = `
+    INSERT INTO
+      projects (
+        organization_id,
+        title,
+        description,
+        project_location,
+        project_date
+      )
+      VALUES (
+        $1,
+        $2,
+        $3,
+        $4,
+        $5
+      )
+    RETURNING project_id;
+  `;
+
+  const queryParams = [
+    organization_id,
+    title,
+    description,
+    project_location,
+    project_date,
+  ];
+
+  const result = await db.query(sqlQuery, queryParams);
+
+  if (result.rows.length === 0) {
+    throw new Error("Failed to create new project!");
+  }
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log("Project created successfully");
+  }
+
+  return result.rows[0].project_id;
+};
+
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
 export {
   getAllProjects,
@@ -152,4 +199,5 @@ export {
   getProjectDetails,
   getProjectsDetailsByCategoryId,
   getAllCategoryTagsByProjectId,
+  createProject,
 };
