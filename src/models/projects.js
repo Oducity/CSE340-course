@@ -144,7 +144,6 @@ const getAllCategoryTagsByProjectId = async (projectId) => {
       : [];
 };
 
-
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
 export {
   getAllProjects,
