@@ -2,11 +2,15 @@ import express from "express";
 
 import { showHomePage } from "./controllers/index.js";
 import {
+  organizationValidation,
+  projectValidation,
+} from "./validation/validation.js";
+
+import {
   showOrganizationsPage,
   showOrganizationDetailsPage,
   showNewOrganizationForm,
   processNewOrganizationForm,
-  organizationValidation,
   showEditOrganizationForm,
   processEditOrganizationForm,
 } from "./controllers/organizations.js";
@@ -57,7 +61,7 @@ router.get("/new-projectFormPage", showNewProjectForm);
 
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
-router.post("/new-projectFormPage", processNewProjectForm);
+router.post("/new-projectFormPage", projectValidation, processNewProjectForm);
 
 // Route to handle the new organization form submission
 router.post(

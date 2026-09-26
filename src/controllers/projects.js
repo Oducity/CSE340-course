@@ -1,4 +1,5 @@
 // This is the projects page
+import { validationResult } from "express-validator";
 import {
   getAllProjects,
   getUpcomingProjects,
