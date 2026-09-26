@@ -1,11 +1,14 @@
 // This is the projects page
+import { validationResult } from "express-validator";
 import {
   getAllProjects,
   getUpcomingProjects,
   getProjectDetails,
   getProjectsDetailsByCategoryId,
   getAllCategoryTagsByProjectId,
+  createProject,
 } from "../models/projects.js"; // import getAllProjects from projects.js to get all projects from the database
+import { getAllOrganizations } from "../models/organizations.js";
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -41,5 +44,58 @@ const showProjectDetailsPage = async (req, res, next) => {
   });
 };
 
+// This controller function handles the createProject model function.
+const showNewProjectForm = async (req, res) => {
+  const allOrganization = await getAllOrganizations();
+
+  const title = "Add New Service Project";
+  res.render("new-projectFormPage", { title, allOrganization });
+};
+
+// This controller function process the new project form
+const processNewProjectForm = async (req, res) => {
+  // Check for validation errors.
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // If validation failed then through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+
+    // Redirect back to the new organization form.
+    return res.redirect(`/new-projectFormPage/`);
+  }
+  try {
+    // Destructure the project data from the form using req.body parameter.
+    const [
+      organization_id,
+      title,
+      description,
+      project_location,
+      project_date,
+    ] = req.body;
+    //pass project data to the model function that create the new project
+    const createdProjectId = await createProject(
+      organization_id,
+      title,
+      description,
+      project_location,
+      project_date,
+    );
+
+    req.flash("Success", "Project created successfully!");
+    res.redirect(`/project/${createdProjectId}`);
+  } catch (error) {
+    console.error(`Error creating new project: ${error}`);
+    req.flash("Error creating new project!");
+    res.redirect("new-projectFormPage");
+  }
+};
+
 // showProjectsPage exported.
-export { showProjectsPage, showProjectDetailsPage };
+export {
+  showProjectsPage,
+  showProjectDetailsPage,
+  showNewProjectForm,
+  processNewProjectForm,
+};

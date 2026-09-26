@@ -1,7 +1,8 @@
 <%- include('partials/header') %>
 <main>
-  <h1><%= title %></h1>
-  <section>
+  <h1 class="heading1"><%= title %></h1>
+  
+  <section class="project-page-details">
     <h2>Details</h2>
     <ul class="list">
       <li class="tag-box">
@@ -39,7 +40,14 @@
         <Strong>Project Date : </Strong>
         <span> <%= projectDetails.projectDate %> </span>
       </li>
+      <li>
+        <span class="edit">
+          <a class="edit-link" href="/new-projectFormPage">Add new service project</a>
+        </span>
+      </li>
     </ul>
+    
   </section>
+  
 </main>
 <%- include('partials/footer') %>

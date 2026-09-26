@@ -2,17 +2,23 @@ import express from "express";
 
 import { showHomePage } from "./controllers/index.js";
 import {
+  organizationValidation,
+  projectValidation,
+} from "./validation/validation.js";
+
+import {
   showOrganizationsPage,
   showOrganizationDetailsPage,
   showNewOrganizationForm,
   processNewOrganizationForm,
-  organizationValidation,
   showEditOrganizationForm,
   processEditOrganizationForm,
 } from "./controllers/organizations.js";
 import {
   showProjectsPage,
   showProjectDetailsPage,
+  showNewProjectForm,
+  processNewProjectForm,
 } from "./controllers/projects.js";
 import {
   showCategoryPage,
@@ -50,6 +56,13 @@ router.get("/new-organization", showNewOrganizationForm);
 //The route for to show edit organization form
 router.get("/edit-organization/:id", showEditOrganizationForm);
 
+//The route for new-project form display
+router.get("/new-projectFormPage", showNewProjectForm);
+
+// The route for processing the processNewProjectForm function controller
+// for the submission of the form to the database.
+router.post("/new-projectFormPage", projectValidation, processNewProjectForm);
+
 // Route to handle the new organization form submission
 router.post(
   "/new-organization",
@@ -64,6 +77,7 @@ router.post(
   organizationValidation,
   processEditOrganizationForm,
 );
+
 //Error handler route.
 router.get("/test-error", testErrorPage);
 

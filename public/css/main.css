@@ -165,6 +165,10 @@ main h2 {
   font-weight: 500;
 }
 
+main.heading1 {
+  margin-bottom: 3.5rem;
+}
+
 main h3 {
   margin: 3rem 0 1.5rem;
   color: var(--color-muted);
@@ -223,7 +227,8 @@ form button {
   cursor: pointer;
 }
 
-.edit {
+span.edit {
+  max-width: 190px;
   padding: 0.5rem 0.5rem;
   background-color: var(--color-alert-error-border);
   color: var(--color-alert-error-text);
@@ -233,7 +238,9 @@ form button {
 
 span.edit a.edit-link {
   color: var(--color-alert-error-text);
+  text-align: center;
 }
+
 main ul.list li,
 .add-org,
 form .form-group {
