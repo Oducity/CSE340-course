@@ -229,9 +229,10 @@ form button {
 
 span.add-link {
   max-width: 300px;
+  min-width: 220px;
   padding: 0.5rem 0.5rem;
   background-color: var(--color-alert-success-border);
-  border: 1px transparent var(--color-alert-error-text);
+  border: 1px transparent var(--color-alert-success-text);
   border-radius: var(--radius);
   text-align: center;
 }
@@ -243,6 +244,7 @@ span.add-link a.edit-link {
 
 span.edit {
   max-width: 300px;
+  min-width: 220px;
   padding: 0.5rem 0.5rem;
   background-color: var(--color-alert-error-border);
   border: 1px transparent var(--color-alert-error-text);
