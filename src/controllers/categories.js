@@ -2,6 +2,7 @@
 import {
   getAllCategories,
   getCategoryDetailsById,
+  updateCategoryAssignments,
 } from "../models/categories.js"; // import getAllCategories from categories.js to get all categories from the database
 import {
   getProjectsDetailsByCategoryId,
@@ -27,17 +28,37 @@ const showAssignCategoriesForm = async (req, res) => {
   const projectId = req.params.id;
   const projectDetails = await getProjectDetails();
   const allCategories = await getAllCategories();
-  const allCategoriesByProjectId =
-    await getAllCategoryTagsByProjectId(projectId);
+  const assignedCategories = await getAllCategoryTagsByProjectId(projectId);
 
-  const title = "Assign Categories to Projects";
+  const title = "Assign Categories to Project";
   res.render("assign-categories", {
     title,
     projectDetails,
     allCategories,
-    allCategoriesByProjectId,
+    assignedCategories,
   });
 };
 
+// This controller function processes the category form assignment.
+const processAssignCategoriesForm = async (req, res) => {
+  try {
+    const projectId = req.params.id;
+    const categoryIds = req.body; // Array of category IDs.
+    await updateCategoryAssignments(projectId, categoryIds);
+
+    req.flash("Success", "Project assigned to categories successfully");
+    res.redirect(`/project/${projectId}`);
+  } catch (error) {
+    console.error(`Error assigning project to categories: ${error}`);
+    req.flash("Error assigning project to categories!");
+    res.redirect("assign-categories");
+  }
+};
+
 // showCategoryPage exported.
-export { showCategoryPage, showCategoryDetailsPage, showAssignCategoriesForm };
+export {
+  showCategoryPage,
+  showCategoryDetailsPage,
+  showAssignCategoriesForm,
+  processAssignCategoriesForm,
+};
