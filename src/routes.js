@@ -19,6 +19,8 @@ import {
   showProjectDetailsPage,
   showNewProjectForm,
   processNewProjectForm,
+  showEditProjectForm,
+  processEditProjectForm,
 } from "./controllers/projects.js";
 import {
   showCategoryPage,
@@ -64,6 +66,9 @@ router.get("/new-projectFormPage", showNewProjectForm);
 // This route display the form for assigning a project to categories
 router.get("/assign-categories/:id", showAssignCategoriesForm);
 
+// route handle routes to the form for editing a project.
+router.get("/edit-project/:id", showEditProjectForm);
+
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
 router.post("/new-projectFormPage", projectValidation, processNewProjectForm);
@@ -86,6 +91,9 @@ router.post(
 // This route handles the form and processes the form
 // submission to link a project to categories
 router.post("/assign-categories/:id", processAssignCategoriesForm);
+
+// This route processes the edit-project.ejs form page.
+router.post("/edit-project/:id", processEditProjectForm);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);

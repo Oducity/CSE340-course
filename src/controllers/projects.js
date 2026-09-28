@@ -7,6 +7,7 @@ import {
   getProjectsDetailsByCategoryId,
   getAllCategoryTagsByProjectId,
   createProject,
+  updateProject,
 } from "../models/projects.js"; // import getAllProjects from projects.js to get all projects from the database
 import { getAllOrganizations } from "../models/organizations.js";
 
@@ -92,10 +93,57 @@ const processNewProjectForm = async (req, res) => {
   }
 };
 
+// This controller handles the updateProject model function
+const showEditProjectForm = async (req, res) => {
+  const projectId = req.params.id;
+  const projectData = await getProjectDetails(projectId);
+  const allOrganization = await getAllOrganizations();
+
+  const title = "Edit Project";
+  res.render("edit-project", { title, projectData, allOrganization });
+};
+
+// This controller function processes the form fo editing project
+const processEditProjectForm = async (req, res) => {
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // If validation failed then through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+
+    // Redirect back to the new organization form.
+    return res.redirect(`/edit-project/${req.params.id}`);
+  }
+
+  const projectId = req.params.id;
+  const {
+    title,
+    description,
+    project_location,
+    project_date,
+    organization_id,
+  } = req.body;
+
+  await updateProject(
+    title,
+    description,
+    project_location,
+    project_date,
+    organization_id,
+    projectId,
+  );
+
+  req.flash("Success", "project updated successfully!");
+  res.redirect(`/project/${projectId}`);
+};
+
 // showProjectsPage exported.
 export {
   showProjectsPage,
   showProjectDetailsPage,
   showNewProjectForm,
   processNewProjectForm,
+  showEditProjectForm,
+  processEditProjectForm,
 };
