@@ -137,11 +137,7 @@ const getAllCategoryTagsByProjectId = async (projectId) => {
   const queryParams = [projectId];
   const result = await db.query(sqlQuery, queryParams);
 
-  return result.rows.length > 4
-    ? "compromised"
-    : result.rows.length > 0
-      ? result.rows
-      : [];
+  return result.rows;
 };
 
 // This model insert a new service project into the database
