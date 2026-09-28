@@ -210,6 +210,15 @@ form .form-group input {
   font-size: large;
   padding: 1rem 0.5rem 0;
 }
+/*********  Only for editing categories form fields */
+.form-group .edit-categories {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  label {
+    padding: 0.7rem 0 0 0;
+  }
+}
 
 form .form-group textarea {
   min-height: 5rem;
@@ -227,18 +236,34 @@ form button {
   cursor: pointer;
 }
 
+span.add-link {
+  max-width: 300px;
+  min-width: 220px;
+  padding: 0.5rem 0.5rem;
+  background-color: var(--color-alert-success-border);
+  border: 1px transparent var(--color-alert-success-text);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+span.add-link a.edit-link {
+  font-weight: 700;
+  color: var(--color-alert-success-text);
+}
+
 span.edit {
-  max-width: 190px;
+  max-width: 300px;
+  min-width: 220px;
   padding: 0.5rem 0.5rem;
   background-color: var(--color-alert-error-border);
-  color: var(--color-alert-error-text);
   border: 1px transparent var(--color-alert-error-text);
   border-radius: var(--radius);
+  text-align: center;
 }
 
 span.edit a.edit-link {
   color: var(--color-alert-error-text);
-  text-align: center;
+  font-weight: 600;
 }
 
 main ul.list li,

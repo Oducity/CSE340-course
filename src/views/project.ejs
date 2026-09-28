@@ -5,6 +5,7 @@
   <section class="project-page-details">
     <h2>Details</h2>
     <ul class="list">
+
       <li class="tag-box">
         <% if ((categoryTag?.length ?? 0) === 0) { %>
           <span class="noTag">
@@ -41,10 +42,16 @@
         <span> <%= projectDetails.projectDate %> </span>
       </li>
       <li>
-        <span class="edit">
+        <span class="add-link">
           <a class="edit-link" href="/new-projectFormPage">Add new service project</a>
         </span>
       </li>
+      <li>
+        <span class="edit">
+          <a class="edit-link" href="/assign-categories/<%= projectDetails.project_id %>">Edit Categories</a>
+        </span>
+      </li>
+
     </ul>
     
   </section>
