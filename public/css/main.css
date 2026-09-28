@@ -210,6 +210,15 @@ form .form-group input {
   font-size: large;
   padding: 1rem 0.5rem 0;
 }
+/*********  Only for editing categories form fields */
+.form-group .edit-categories {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  label {
+    padding: 0.7rem 0 0 0;
+  }
+}
 
 form .form-group textarea {
   min-height: 5rem;

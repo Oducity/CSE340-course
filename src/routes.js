@@ -23,6 +23,8 @@ import {
 import {
   showCategoryPage,
   showCategoryDetailsPage,
+  showAssignCategoriesForm,
+  processAssignCategoriesForm,
 } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -59,6 +61,9 @@ router.get("/edit-organization/:id", showEditOrganizationForm);
 //The route for new-project form display
 router.get("/new-projectFormPage", showNewProjectForm);
 
+// This route display the form for assigning a project to categories
+router.get("/assign-categories/:id", showAssignCategoriesForm);
+
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
 router.post("/new-projectFormPage", projectValidation, processNewProjectForm);
@@ -77,6 +82,10 @@ router.post(
   organizationValidation,
   processEditOrganizationForm,
 );
+
+// This route handles the form and processes the form
+// submission to link a project to categories
+router.post("/assign-categories/:id", processAssignCategoriesForm);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);

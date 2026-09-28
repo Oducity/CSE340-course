@@ -26,7 +26,7 @@ const showCategoryDetailsPage = async (req, res) => {
 
 const showAssignCategoriesForm = async (req, res) => {
   const projectId = req.params.id;
-  const projectDetails = await getProjectDetails();
+  const projectDetails = await getProjectDetails(projectId);
   const allCategories = await getAllCategories();
   const assignedCategories = await getAllCategoryTagsByProjectId(projectId);
 
@@ -43,11 +43,11 @@ const showAssignCategoriesForm = async (req, res) => {
 const processAssignCategoriesForm = async (req, res) => {
   try {
     const projectId = req.params.id;
-    const categoryIds = req.body; // Array of category IDs.
+    const categoryIds = [].concat(req.body.categoryId); // Array of category IDs.
     await updateCategoryAssignments(projectId, categoryIds);
 
     req.flash("Success", "Project assigned to categories successfully");
-    res.redirect(`/project/${projectId}`);
+    res.redirect(`/project/${req.params.id}`);
   } catch (error) {
     console.error(`Error assigning project to categories: ${error}`);
     req.flash("Error assigning project to categories!");
