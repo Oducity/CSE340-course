@@ -283,6 +283,20 @@ form .form-group {
     box-shadow 0.2s ease;
 }
 
+/*
+ul.list li.category-item span.button {
+  max-width: 250px;
+  background-color: var(--color-alert-success-background);
+  padding: 12px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: var(--radius);
+  a {
+    color: var(--color-alert-success-text);
+  }
+}
+*/
+
 .add-org {
   background-color: var(--color-btn-background);
   font-weight: 600;

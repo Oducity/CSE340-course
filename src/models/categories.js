@@ -55,11 +55,7 @@ const updateCategoryAssignments = async (projectId, categoryIds) => {
 };
 
 // This model adds a category the category table
-const addNewCategory = async (
-  category_name,
-  category_description,
-  category_tag,
-) => {
+const addNewCategory = async (category_name) => {
   const sqlQuery = `
   INSERT INTO category(category_name)
   VALUES( $1, )

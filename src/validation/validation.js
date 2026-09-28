@@ -56,4 +56,12 @@ const projectValidation = [
     .withMessage("Organization must be integer value"),
 ];
 
-export { organizationValidation, projectValidation };
+// This function validate category data
+const categoryValidation = [
+  body("category_name")
+    .trim()
+    .notEmpty()
+    .withMessage("Category name is required"),
+];
+
+export { organizationValidation, projectValidation, categoryValidation };

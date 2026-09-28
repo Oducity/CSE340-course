@@ -1,4 +1,5 @@
 // This is the category page
+import { validationResult } from "express-validator";
 import {
   getAllCategories,
   getCategoryDetailsById,
@@ -56,9 +57,33 @@ const processAssignCategoriesForm = async (req, res) => {
   }
 };
 
+// This controller show the new-categoryForm view
 const showAddNewCategoryForm = (req, res) => {
   const title = "Add New Category";
   res.render("new-categoryForm", { title });
+};
+
+// This controller processes the addNewCategory model function
+const processAddNewCategoryForm = async (req, res) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    // If validation failed then through errors
+    result.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+
+    // Redirect back to the new organization form.
+    return res.redirect("/new-categoryForm");
+  }
+  try {
+    const { category_name } = req.body;
+    const category_id = await addNewCategory(category_name);
+    req.flash("Success", "Category created successfully");
+    res.redirect(`/category/${category_id}`);
+  } catch (error) {
+    req.flash("Error creating category");
+    res.redirect("/new-categoryForm");
+  }
 };
 
 // showCategoryPage exported.
@@ -68,4 +93,5 @@ export {
   showAssignCategoriesForm,
   processAssignCategoriesForm,
   showAddNewCategoryForm,
+  processAddNewCategoryForm,
 };
