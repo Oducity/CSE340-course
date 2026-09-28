@@ -27,6 +27,7 @@ import {
   showCategoryDetailsPage,
   showAssignCategoriesForm,
   processAssignCategoriesForm,
+  showAddNewCategoryForm,
 } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -68,6 +69,9 @@ router.get("/assign-categories/:id", showAssignCategoriesForm);
 
 // route handle routes to the form for editing a project.
 router.get("/edit-project/:id", showEditProjectForm);
+
+// This route handles the new-categoryForm page
+router.get("/new-categoryForm", showAddNewCategoryForm);
 
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.

@@ -3,6 +3,7 @@ import {
   getAllCategories,
   getCategoryDetailsById,
   updateCategoryAssignments,
+  addNewCategory,
 } from "../models/categories.js"; // import getAllCategories from categories.js to get all categories from the database
 import {
   getProjectsDetailsByCategoryId,
@@ -55,10 +56,16 @@ const processAssignCategoriesForm = async (req, res) => {
   }
 };
 
+const showAddNewCategoryForm = (req, res) => {
+  const title = "Add New Category";
+  res.render("new-categoryForm", { title });
+};
+
 // showCategoryPage exported.
 export {
   showCategoryPage,
   showCategoryDetailsPage,
   showAssignCategoriesForm,
   processAssignCategoriesForm,
+  showAddNewCategoryForm,
 };
