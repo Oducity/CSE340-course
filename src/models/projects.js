@@ -191,6 +191,38 @@ const createProject = async (
   return result.rows[0].project_id;
 };
 
+const updateProject = async (
+  projectId,
+  organization_id,
+  title,
+  description,
+  project_location,
+  project_date,
+) => {
+  const sqlQuery = `
+    ALTER projects
+    SET organization_id = $2, title = $3, description = $4, project_description = $5, project_date = $6
+    WHERE project_id = $!
+  `;
+
+  const results = db.query(sqlQuery, [
+    projectId,
+    organization_id,
+    title,
+    description,
+    project_location,
+    project_date,
+  ]);
+
+  if (results.rows.length === 0) {
+    throw new Error("Failed to update project!");
+  }
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log("Project updated successfully");
+  }
+  return results.rows[0].project_id;
+};
+
 // Export getAllProjects and getProjectsByOrganizationId functions for use in other parts of the application, such as in server.js file.
 export {
   getAllProjects,
@@ -200,4 +232,5 @@ export {
   getProjectsDetailsByCategoryId,
   getAllCategoryTagsByProjectId,
   createProject,
+  updateProject,
 };

@@ -1,0 +1,65 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+    <form action="#">
+        
+        <div class="form-group">
+            <label for="title">Project Title</label>
+            <input
+                type="text"
+                name="title"
+                id="title"
+                minlength="3"
+                maxlength="199"
+                required 
+                value="<%= projectData.projectTitle %>" 
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Project Description</label>
+            <textarea
+                name="description"
+                id="description"
+                maxlength="800"
+                required>
+                    <%= projectData.projectDescription %>
+            </textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="project_location">Project Location</label>
+            <textarea 
+                name="project_location"
+                id="project_location"
+                required minlength="2"
+                maxlength="190">
+                    <%= projectData.projectLocation %>
+            </textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="project_date">Project Date</label>
+            <input
+                type="date"
+                name="project_date"
+                id="project_date"
+                required
+                value="<%= projectData.projectDate %>" 
+            />
+        </div>
+    
+        <div class="form-group">
+            <label for="organization_id">Organization Name</label>
+            <select name="organization_id" id="organization_id" required>
+                <% allOrganization.forEach((organization) => { %>
+                    <option value="<%= organization.organization_id %>">
+                        <%= organization.organization_name %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+    </form>
+
+</main>
+<%- include('partials/footer') %>
