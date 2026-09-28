@@ -105,8 +105,37 @@ const showEditProjectForm = async (req, res) => {
 
 // This controller function processes the form fo editing project
 const processEditProjectForm = async (req, res) => {
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // If validation failed then through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+
+    // Redirect back to the new organization form.
+    return res.redirect(`/edit-project/${req.params.id}`);
+  }
+
   const projectId = req.params.id;
-  
+  const {
+    title,
+    description,
+    project_location,
+    project_date,
+    organization_id,
+  } = req.body;
+
+  await updateProject(
+    title,
+    description,
+    project_location,
+    project_date,
+    organization_id,
+    projectId,
+  );
+
+  req.flash("Success", "project updated successfully!");
+  res.redirect(`/project/${projectId}`);
 };
 
 // showProjectsPage exported.
@@ -116,4 +145,5 @@ export {
   showNewProjectForm,
   processNewProjectForm,
   showEditProjectForm,
+  processEditProjectForm,
 };

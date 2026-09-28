@@ -192,26 +192,27 @@ const createProject = async (
 };
 
 const updateProject = async (
-  projectId,
-  organization_id,
   title,
   description,
   project_location,
   project_date,
+  organization_id,
+  projectId,
 ) => {
   const sqlQuery = `
-    ALTER projects
-    SET organization_id = $2, title = $3, description = $4, project_description = $5, project_date = $6
-    WHERE project_id = $!
+    UPDATE projects
+    SET title = $1, description = $2, project_location = $3, project_date = $4, organization_id = $5
+    WHERE project_id = $6
+    RETURNING project_id;
   `;
 
-  const results = db.query(sqlQuery, [
-    projectId,
-    organization_id,
+  const results = await db.query(sqlQuery, [
     title,
     description,
     project_location,
     project_date,
+    organization_id,
+    projectId,
   ]);
 
   if (results.rows.length === 0) {
