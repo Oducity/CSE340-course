@@ -20,6 +20,7 @@ const getCategoryDetailsById = async (categoryId) => {
     SELECT
       category_id,
       category_name,
+      category_description,
       category_tag
     FROM category
     WHERE category_id = $1;
