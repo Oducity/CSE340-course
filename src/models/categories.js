@@ -82,11 +82,13 @@ const updateCategory = async (
    WHERE category_id = $3
    RETURNING category_id;
   `;
-  return (result.rows = await db.query(sqlQuery, [
+
+  const result = await db.query(sqlQuery, [
     category_name,
     category_description,
     category_id,
-  ]));
+  ]);
+  return result.rows;
 };
 export {
   getAllCategories,
