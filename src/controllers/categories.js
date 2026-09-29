@@ -104,6 +104,14 @@ const processAddNewCategoryForm = async (req, res) => {
   }
 };
 
+// This function displays the updateCategoryForm.ejs file
+const showUpdateCategoryForm = async (req, res) => {
+  const categoryId = req.params.id;
+  const categoryDetails = await getCategoryDetailsById(categoryId);
+  const title = "Update Category";
+  res.render("updateCategoryForm", { title, categoryDetails });
+};
+
 // showCategoryPage exported.
 export {
   showCategoryPage,
@@ -112,4 +120,5 @@ export {
   processAssignCategoriesForm,
   showAddNewCategoryForm,
   processAddNewCategoryForm,
+  showUpdateCategoryForm,
 };

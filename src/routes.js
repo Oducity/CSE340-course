@@ -30,6 +30,7 @@ import {
   processAssignCategoriesForm,
   showAddNewCategoryForm,
   processAddNewCategoryForm,
+  showUpdateCategoryForm,
 } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -74,6 +75,9 @@ router.get("/edit-project/:id", showEditProjectForm);
 
 // This route handles the new-categoryForm page
 router.get("/new-categoryForm", showAddNewCategoryForm);
+
+// This route get the display the updateCategoryForm.ejs
+router.get("/updateCategoryForm/:id", showUpdateCategoryForm);
 
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
