@@ -236,17 +236,19 @@ form button {
   cursor: pointer;
 }
 
-span.add-link {
+span.add-link,
+p.add-org {
   max-width: 300px;
   min-width: 220px;
   padding: 0.5rem 0.5rem;
-  background-color: var(--color-alert-success-border);
+  background-color: var(--color-alert-success-background);
   border: 1px transparent var(--color-alert-success-text);
   border-radius: var(--radius);
   text-align: center;
 }
 
-span.add-link a.edit-link {
+span.add-link a.edit-link,
+p.add-org a.add-org-link {
   font-weight: 700;
   color: var(--color-alert-success-text);
 }
@@ -255,7 +257,7 @@ span.edit {
   max-width: 300px;
   min-width: 220px;
   padding: 0.5rem 0.5rem;
-  background-color: var(--color-alert-error-border);
+  background-color: var(--color-alert-error-background);
   border: 1px transparent var(--color-alert-error-text);
   border-radius: var(--radius);
   text-align: center;
@@ -350,6 +352,7 @@ footer {
   color: var(--color-muted);
   background: var(--color-surface);
   border-top: 1px solid var(--color-border);
+  margin-top: 0.8rem;
 }
 
 footer p {
