@@ -70,11 +70,28 @@ const addNewCategory = async (category_name, category_description) => {
 };
 
 // This model function update the categories table
-const editCategory = async () => {};
+const updateCategory = async (
+  category_name,
+  category_description,
+  category_id,
+) => {
+  const sqlQuery = `
+   UPDATE category
+   SET category_name = $1, category_description = $2
+   WHERE category_id = $3
+   RETURNING category_id;
+  `;
+  return (result.rows = await db.query(sqlQuery, [
+    category_name,
+    category_description,
+    category_id,
+  ]));
+};
 export {
   getAllCategories,
   getCategoryDetailsById,
   assignCategoryToProject,
   updateCategoryAssignments,
   addNewCategory,
+  updateCategory,
 };
