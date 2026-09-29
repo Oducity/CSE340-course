@@ -1,10 +1,8 @@
 // This is the projects page
 import { validationResult } from "express-validator";
 import {
-  getAllProjects,
   getUpcomingProjects,
   getProjectDetails,
-  getProjectsDetailsByCategoryId,
   getAllCategoryTagsByProjectId,
   createProject,
   updateProject,

@@ -34,7 +34,6 @@ import {
   processUpdateCategoryForm,
 } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
-import { validationResult } from "express-validator";
 
 const router = express.Router();
 
