@@ -117,7 +117,7 @@ nav a:focus {
   border-radius: 4px;
   text-align: center;
 }
-.alert.Success {
+.alert.success {
   color: var(--color-alert-success-text);
   background-color: var(--color-alert-success-background);
   border-color: var(--color-alert-success-border);

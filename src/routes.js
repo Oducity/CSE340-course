@@ -30,8 +30,11 @@ import {
   processAssignCategoriesForm,
   showAddNewCategoryForm,
   processAddNewCategoryForm,
+  showUpdateCategoryForm,
+  processUpdateCategoryForm,
 } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
+import { validationResult } from "express-validator";
 
 const router = express.Router();
 
@@ -75,6 +78,9 @@ router.get("/edit-project/:id", showEditProjectForm);
 // This route handles the new-categoryForm page
 router.get("/new-categoryForm", showAddNewCategoryForm);
 
+// This route get the display the updateCategoryForm.ejs
+router.get("/updateCategoryForm/:id", showUpdateCategoryForm);
+
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
 router.post("/new-projectFormPage", projectValidation, processNewProjectForm);
@@ -103,6 +109,13 @@ router.post("/edit-project/:id", processEditProjectForm);
 
 // This route handles the new-categoryForm registration using post method
 router.post("/new-categoryForm", categoryValidation, processAddNewCategoryForm);
+
+// This route handles the updateCategoryForm submission
+router.post(
+  "/updateCategoryForm/:id",
+  categoryValidation,
+  processUpdateCategoryForm,
+);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);

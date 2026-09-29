@@ -5,6 +5,7 @@ import {
   getCategoryDetailsById,
   updateCategoryAssignments,
   addNewCategory,
+  updateCategory,
 } from "../models/categories.js"; // import getAllCategories from categories.js to get all categories from the database
 import {
   getProjectsDetailsByCategoryId,
@@ -104,7 +105,56 @@ const processAddNewCategoryForm = async (req, res) => {
   }
 };
 
-// showCategoryPage exported.
+// This function displays the updateCategoryForm.ejs file
+const showUpdateCategoryForm = async (req, res) => {
+  console.clear();
+
+  const categoryId = req.params.id;
+  const categoryDetails = await getCategoryDetailsById(categoryId);
+  const title = "Update Category";
+  console.clear();
+  res.render("updateCategoryForm", { title, categoryDetails });
+  console.log("Rendered");
+};
+
+// This function controller handles the submission of the category updates
+const processUpdateCategoryForm = async (req, res) => {
+  console.log("Validating form");
+  // Check for validation errors.
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // If validation failed then through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+
+    // Redirect back to the new organization form.
+    return res.redirect(`/updateCategoryForm/${category_id}`);
+  }
+
+  console.log("Form validation completed");
+  try {
+    const category_id = req.params.id;
+    const { category_name, category_description } = req.body;
+    console.clear();
+    console.log(
+      "I reached processUpdateCategoryForm controller. Before model function",
+    );
+    await updateCategory(category_name, category_description, category_id);
+    console.log("After model function");
+
+    req.flash("success", "Category updated successfully");
+    res.redirect(`/category/${category_id}`);
+  } catch (error) {
+    console.error("Error updating the category", error);
+    req.flash("error", "Unable to update the category.");
+    throw new Error(
+      "Error happened while trying to update category. Our engineers have been notified and they are working on it. You may try back latter.",
+    );
+  }
+};
+
+// All functions exported.
 export {
   showCategoryPage,
   showCategoryDetailsPage,
@@ -112,4 +162,6 @@ export {
   processAssignCategoriesForm,
   showAddNewCategoryForm,
   processAddNewCategoryForm,
+  showUpdateCategoryForm,
+  processUpdateCategoryForm,
 };
