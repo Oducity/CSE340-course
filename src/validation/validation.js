@@ -61,7 +61,17 @@ const categoryValidation = [
   body("category_name")
     .trim()
     .notEmpty()
-    .withMessage("Category name is required"),
+    .withMessage("Category name is required")
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Category name should between 3 to 100 characters."),
+  body("category_description")
+    .trim()
+    .notEmpty()
+    .withMessage("Category description is required")
+    .isLength({ min: 30, max: 500 })
+    .withMessage(
+      "Category description should be between 50 to 500 characters.",
+    ),
 ];
 
 export { organizationValidation, projectValidation, categoryValidation };

@@ -19,11 +19,16 @@ const showCategoryPage = async (req, res) => {
 };
 
 const showCategoryDetailsPage = async (req, res) => {
-  const categoryId = req.params.id;
-  const categoryDetail = await getCategoryDetailsById(categoryId);
-  const categoryProjects = await getProjectsDetailsByCategoryId(categoryId);
-  const title = "Category Details";
-  res.render("category", { title, categoryDetail, categoryProjects });
+  try {
+    const categoryId = req.params.id;
+    const categoryDetail = await getCategoryDetailsById(categoryId);
+    const categoryProjects = await getProjectsDetailsByCategoryId(categoryId);
+    const title = "Category Details";
+    res.render("category", { title, categoryDetail, categoryProjects });
+  } catch (error) {
+    console.error("Error fetching category details", error);
+    throw new Error("Error fetching category details.");
+  }
 };
 
 const showAssignCategoriesForm = async (req, res) => {
@@ -43,17 +48,25 @@ const showAssignCategoriesForm = async (req, res) => {
 
 // This controller function processes the category form assignment.
 const processAssignCategoriesForm = async (req, res) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    // If validation failed then flash errors
+    result.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+  }
+
   try {
     const projectId = req.params.id;
     const categoryIds = [].concat(req.body.categoryId); // Array of category IDs.
     await updateCategoryAssignments(projectId, categoryIds);
 
-    req.flash("Success", "Project assigned to categories successfully");
+    req.flash("success", "Project assigned to categories successfully");
     res.redirect(`/project/${req.params.id}`);
   } catch (error) {
     console.error(`Error assigning project to categories: ${error}`);
-    req.flash("Error assigning project to categories!");
-    res.redirect("assign-categories");
+    req.flash("error", "assigning project to categories!");
+    throw new Error("Error assigning the category. Try back later.");
   }
 };
 
@@ -65,9 +78,10 @@ const showAddNewCategoryForm = (req, res) => {
 
 // This controller processes the addNewCategory model function
 const processAddNewCategoryForm = async (req, res) => {
+  // Check for validation errors.
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    // If validation failed then through errors
+    // If validation failed then flash errors
     result.array().forEach((error) => {
       req.flash("error", error.msg);
     });
@@ -76,13 +90,17 @@ const processAddNewCategoryForm = async (req, res) => {
     return res.redirect("/new-categoryForm");
   }
   try {
-    const { category_name } = req.body;
-    const category_id = await addNewCategory(category_name);
-    req.flash("Success", "Category created successfully");
+    const { category_name, category_description } = req.body;
+    const category_id = await addNewCategory(
+      category_name,
+      category_description,
+    );
+    req.flash("success", "Category created successfully");
     res.redirect(`/category/${category_id}`);
   } catch (error) {
-    req.flash("Error creating category");
-    res.redirect("/new-categoryForm");
+    console.error("Error creating new category", error);
+    req.flash("error", "Error creating new organization");
+    throw new Error("Error creating new category");
   }
 };
 

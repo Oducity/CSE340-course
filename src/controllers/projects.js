@@ -58,7 +58,7 @@ const processNewProjectForm = async (req, res) => {
   // Check for validation errors.
   const results = validationResult(req);
   if (!results.isEmpty()) {
-    // If validation failed then through errors
+    // If validation failed then flash errors
     results.array().forEach((error) => {
       req.flash("error", error.msg);
     });
@@ -84,12 +84,12 @@ const processNewProjectForm = async (req, res) => {
       project_date,
     );
 
-    req.flash("Success", "Project created successfully!");
+    req.flash("success", "Project created successfully!");
     res.redirect(`/project/${createdProjectId}`);
   } catch (error) {
     console.error(`Error creating new project: ${error}`);
-    req.flash("Error creating new project!");
-    res.redirect("new-projectFormPage");
+    req.flash("error", "Error creating new project!");
+    throw new Error("Error creating new project");
   }
 };
 
@@ -115,27 +115,32 @@ const processEditProjectForm = async (req, res) => {
     // Redirect back to the new organization form.
     return res.redirect(`/edit-project/${req.params.id}`);
   }
+  try {
+    const projectId = req.params.id;
+    const {
+      title,
+      description,
+      project_location,
+      project_date,
+      organization_id,
+    } = req.body;
 
-  const projectId = req.params.id;
-  const {
-    title,
-    description,
-    project_location,
-    project_date,
-    organization_id,
-  } = req.body;
+    await updateProject(
+      title,
+      description,
+      project_location,
+      project_date,
+      organization_id,
+      projectId,
+    );
 
-  await updateProject(
-    title,
-    description,
-    project_location,
-    project_date,
-    organization_id,
-    projectId,
-  );
-
-  req.flash("Success", "project updated successfully!");
-  res.redirect(`/project/${projectId}`);
+    req.flash("success", "project updated successfully!");
+    res.redirect(`/project/${projectId}`);
+  } catch (error) {
+    console.error("Error processing the project edit", error);
+    req.flash("error", "Error editing the project.");
+    throw new Error("Error processing the project edit. Try back later.");
+  }
 };
 
 // showProjectsPage exported.
