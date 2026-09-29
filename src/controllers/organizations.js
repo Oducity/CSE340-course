@@ -45,18 +45,23 @@ const processNewOrganizationForm = async (req, res) => {
     // Redirect back to the new organization form.
     return res.redirect("/new-organization");
   }
+  try {
+    const { name, description, contactEmail } = req.body;
+    const logoFilename = "placeholder-logo.png";
+    const organizationId = await createOrganization(
+      name,
+      description,
+      contactEmail,
+      logoFilename,
+    );
 
-  const { name, description, contactEmail } = req.body;
-  const logoFilename = "placeholder-logo.png";
-  const organizationId = await createOrganization(
-    name,
-    description,
-    contactEmail,
-    logoFilename,
-  );
-
-  req.flash("success", "Organization added successfully.");
-  res.redirect(`/organization/${organizationId}`);
+    req.flash("success", "Organization added successfully.");
+    res.redirect(`/organization/${organizationId}`);
+  } catch (error) {
+    console.error("Error creating new organization", error);
+    req.flash("error", "Error creating new organization");
+    throw new Error("Error creating your organization. Try back later.");
+  }
 };
 
 // The controller process the organization to be edited
@@ -81,19 +86,24 @@ const processEditOrganizationForm = async (req, res) => {
     return res.redirect(`/edit-organization/${req.params.id}`);
   }
 
-  const organizationId = req.params.id;
-  const { name, description, contactEmail, logoFilename } = req.body;
+  try {
+    const organizationId = req.params.id;
+    const { name, description, contactEmail, logoFilename } = req.body;
+    await updateOrganization(
+      organizationId,
+      name,
+      description,
+      contactEmail,
+      logoFilename,
+    );
 
-  await updateOrganization(
-    organizationId,
-    name,
-    description,
-    contactEmail,
-    logoFilename,
-  );
-
-  req.flash("Success", "Organization updated successfully!");
-  res.redirect(`/organization/${organizationId}`);
+    req.flash("success", "Organization updated successfully!");
+    res.redirect(`/organization/${organizationId}`);
+  } catch (error) {
+    console.error("Error editing the organization", error);
+    req.flash("error", "Error processing your organization edit.");
+    throw new Error("Error processing your organization edit edit");
+  }
 };
 
 export {

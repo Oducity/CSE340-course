@@ -4,6 +4,7 @@ import { showHomePage } from "./controllers/index.js";
 import {
   organizationValidation,
   projectValidation,
+  categoryValidation,
 } from "./validation/validation.js";
 
 import {
@@ -27,6 +28,8 @@ import {
   showCategoryDetailsPage,
   showAssignCategoriesForm,
   processAssignCategoriesForm,
+  showAddNewCategoryForm,
+  processAddNewCategoryForm,
 } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -69,6 +72,9 @@ router.get("/assign-categories/:id", showAssignCategoriesForm);
 // route handle routes to the form for editing a project.
 router.get("/edit-project/:id", showEditProjectForm);
 
+// This route handles the new-categoryForm page
+router.get("/new-categoryForm", showAddNewCategoryForm);
+
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
 router.post("/new-projectFormPage", projectValidation, processNewProjectForm);
@@ -94,6 +100,9 @@ router.post("/assign-categories/:id", processAssignCategoriesForm);
 
 // This route processes the edit-project.ejs form page.
 router.post("/edit-project/:id", processEditProjectForm);
+
+// This route handles the new-categoryForm registration using post method
+router.post("/new-categoryForm", categoryValidation, processAddNewCategoryForm);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);

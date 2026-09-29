@@ -26,7 +26,7 @@ const getCategoryDetailsById = async (categoryId) => {
   `;
   const idOfCategory = [categoryId];
   const result = await db.query(sqlQuery, idOfCategory);
-  return result.rows.length > 0 ? result.rows[0] : null;
+  return result.rows.length > 0 ? result.rows[0] : [];
 };
 
 // This function assigns categories to a project
@@ -53,9 +53,28 @@ const updateCategoryAssignments = async (projectId, categoryIds) => {
     await assignCategoryToProject(projectId, categoryId);
   }
 };
+
+// This model adds a category the category table
+const addNewCategory = async (category_name, category_description) => {
+  const sqlQuery = `
+  INSERT INTO category(category_name, category_description)
+  VALUES( $1, $2 )
+  RETURNING category_id;
+  `;
+
+  const result = await db.query(sqlQuery, [
+    category_name,
+    category_description,
+  ]);
+  return result.rows[0];
+};
+
+// This model function update the categories table
+const editCategory = async () => {};
 export {
   getAllCategories,
   getCategoryDetailsById,
   assignCategoryToProject,
   updateCategoryAssignments,
+  addNewCategory,
 };

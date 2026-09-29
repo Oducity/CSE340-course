@@ -117,7 +117,7 @@ const getProjectsDetailsByCategoryId = async (categoryId) => {
 
   const queryParams = [categoryId]; // Get the category id from the input.
   const result = await db.query(sqlQuery, queryParams); // Query the database allowing the database to compare for the categoryId on its own for safety.
-  return result.rows.length > 0 ? result.rows : null; // Check and return the result row if the rows found is greater than 0.
+  return result.rows.length > 0 ? result.rows : []; // Check and return the result row if the rows found is greater than 0.
 };
 
 const getAllCategoryTagsByProjectId = async (projectId) => {
@@ -137,11 +137,7 @@ const getAllCategoryTagsByProjectId = async (projectId) => {
   const queryParams = [projectId];
   const result = await db.query(sqlQuery, queryParams);
 
-  return result.rows.length > 4
-    ? "compromised"
-    : result.rows.length > 0
-      ? result.rows
-      : [];
+  return result.rows;
 };
 
 // This model insert a new service project into the database
