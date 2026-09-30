@@ -120,6 +120,7 @@ const showUpdateCategoryForm = async (req, res) => {
 // This function controller handles the submission of the category updates
 const processUpdateCategoryForm = async (req, res) => {
   console.log("Validating form");
+  const category_id = req.params.id;
   // Check for validation errors.
   const results = validationResult(req);
   if (!results.isEmpty()) {
@@ -134,7 +135,6 @@ const processUpdateCategoryForm = async (req, res) => {
 
   console.log("Form validation completed");
   try {
-    const category_id = req.params.id;
     const { category_name, category_description } = req.body;
     console.clear();
     console.log(

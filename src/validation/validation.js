@@ -70,7 +70,7 @@ const categoryValidation = [
     .withMessage("Category description is required")
     .isLength({ min: 30, max: 500 })
     .withMessage(
-      "Category description should be between 50 to 500 characters.",
+      "Category description should be between 30 to 500 characters.",
     ),
 ];
 
