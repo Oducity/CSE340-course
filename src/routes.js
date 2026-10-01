@@ -137,7 +137,7 @@ router.post(
 router.post("/register", userValidation, processUserRegistrationForm);
 
 // This route handles the user login form submission
-router.post("/login", userValidation, processLoginForm);
+router.post("/login", processLoginForm);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);

@@ -43,7 +43,7 @@ const processUserRegistrationForm = async (req, res) => {
 
 // This function displays the user login form
 const showLoginForm = (req, res) => {
-  res.render("login", { title: "Login" });
+  res.render("login", { title: "User Login" });
 };
 
 // This function processes the user login form submission
@@ -51,15 +51,15 @@ const processLoginForm = async (req, res) => {
   // Destructure the user input from the request body
   const { email, password } = req.body;
   // Validate the user input using express-validator
-  const results = validationResult(req);
-  if (!results.isEmpty()) {
-    // If validation failed then through errors
-    results.array().forEach((error) => {
-      req.flash("error", error.msg);
-    });
-    // If validation failed, redirect back to the registration form with the errors
-    return res.redirect(400).render("register", { errors });
-  }
+  //const results = validationResult(req);
+  //if (!results.isEmpty()) {
+  //  // If validation failed then through errors
+  //  results.array().forEach((error) => {
+  //    req.flash("error", error.msg);
+  //  });
+  //  // If validation failed, redirect back to the registration form with the errors
+  //  return res.redirect(400).render("login", { errors });
+  //}
   try {
     const user = await authenticateUser(email, password);
     if (!user) {
