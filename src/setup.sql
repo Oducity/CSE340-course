@@ -251,6 +251,7 @@ category_description TEXT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
 -- This script inserts data into the category table
 INSERT INTO category (
 	category_name,
@@ -376,3 +377,33 @@ WHERE category_id = 3;
 UPDATE category
 SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23e8f5e9'/%3E%3Cpath d='M10 5h4v5h5v4h-5v5h-4v-5H5v-4h5z' fill='%232e7d32'/%3E%3C/svg%3E" alt="Health" width="24" height="24">$$
 WHERE category_id = 4;
+
+-- This script creates the roles table in the database
+CREATE TABLE roles ( 
+role_id SERIAL PRIMARY KEY,
+role_name VARCHAR(50) NOT NULL UNIQUE,
+role_description TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- This script inserts data into the roles table
+INSERT INTO roles(
+role_name, 
+role_description
+)
+VALUES (
+'user', 'Standard user with basic access'
+),
+(
+'admin', 'Administrator with full system access'
+);
+
+-- This script creates the users table in the database
+CREATE TABLE users(
+user_id SERIAL PRIMARY KEY,
+user_name VARCHAR(100) NOT NULL,
+user_email VARCHAR(100) NOT NULL UNIQUE,
+password_hash VARCHAR(255) NOT NULL,
+role_id INTEGER REFERENCES roles(role_id),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
