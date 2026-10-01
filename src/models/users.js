@@ -21,6 +21,8 @@ const createUser = async (userName, email, password_hash, userRole) => {
 };
 
 // This function retrieves a user from the database by their email address and returns the user's data.
+// If no user is found with the given email, it returns null. I have created this function before
+//  creating this branch, so this function is already present in the main branch. I have added it here for completeness.
 const findUserByEmail = async (email) => {
   const sqlQuery = `
     SELECT user_id, user_name, user_email, password_hash, role_id
