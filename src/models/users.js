@@ -1,5 +1,6 @@
 // Imports the db function from the database file.
 import db from "./db.js";
+import bcrypt from "bcrypt";
 
 // this function create a new user in the database and returns the newly created user's ID
 const createUser = async (userName, email, password_hash, userRole) => {
@@ -38,4 +39,24 @@ const findUserByEmail = async (email) => {
   return result.rows[0];
 };
 
-export { createUser, findUserByEmail };
+// This function verifies a user's password by comparing the provided password
+//  with the hashed password stored in the database.
+const verifyPassword = async (password, hashedPassword) => {
+  return await bcrypt.compare(password, hashedPassword);
+};
+
+// This function authenticate a user by their email and password. It first retrieves the user by email, then verifies the password.
+const authenticateUser = async (email, password) => {
+  const user = await findUserByEmail(email);
+  if (!user) {
+    return null; // Return null if no user is found with the given email
+  }
+  const isPasswordMatch = await verifyPassword(password, user.password_hash);
+  if (!isPasswordMatch) {
+    return null; // Return null if the password does not match
+  }
+  const { password_hash, ...userWithoutPassword } = user; // Return the user object without the password hash
+  return userWithoutPassword;
+};
+
+export { createUser, findUserByEmail, authenticateUser };
