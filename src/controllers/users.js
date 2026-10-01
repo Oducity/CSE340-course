@@ -33,7 +33,7 @@ const processUserRegistrationForm = async (req, res) => {
       2, // Default role ID for a regular user
     );
     req.flash("success", "User registered successfully.");
-    res.redirect(`/user/${userId}`);
+    res.redirect("/");
   } catch (error) {
     console.error("Error creating new user", error);
     req.flash("error", "Error creating new user. Please try again later.");

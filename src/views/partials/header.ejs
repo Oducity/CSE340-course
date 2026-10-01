@@ -22,8 +22,13 @@
           <a href="/category">Categories</a>
         </li>
       </ul>
-      <span class="nav-items nav-right register-link">
-        <a href="/register">Register</a>
+      <span class="nav-items nav-right">
+        <% if (isLoggedIn) { %>
+          <a href="/logout">Logout</a>
+        <% } else { %>
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+        <% } %>
       </span>
     </nav>
     <div class="nav-bottom-belt" ></div>
