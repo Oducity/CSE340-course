@@ -81,18 +81,12 @@ const processLoginForm = async (req, res) => {
 
 // This function logs out the user by destroying the session and redirecting to the home page
 const processLogout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session", err);
-      req.flash("error", "Error logging out. Please try again later.");
-      return res.redirect("/");
-    }
-    req.flash("success", "Logged out successfully.");
-    if (res.locals.NODE_ENV === "development") {
-      console.log("User logged out.");
-    }
-    res.redirect("/");
-  });
+  if (req.session.user) {
+    delete req.session.user;
+  }
+
+  req.flash("success", "Logout successful!");
+  res.redirect("/login");
 };
 
 export {
