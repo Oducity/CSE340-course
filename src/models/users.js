@@ -2,7 +2,7 @@
 import db from "./db.js";
 
 // this function create a new user in the database and returns the newly created user's ID
-const createUSer = async (userName, email, password_hash, userRole) => {
+const createUser = async (userName, email, password_hash, userRole) => {
   const sqlQuery = `
     INSERT INTO users (user_name, user_email, password_hash, role_id)
     VALUES ($1, $2, $3, $4)
@@ -20,4 +20,4 @@ const createUSer = async (userName, email, password_hash, userRole) => {
   return result.rows[0].user_id;
 };
 
-export { createUSer };
+export { createUser };

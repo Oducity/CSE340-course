@@ -74,4 +74,25 @@ const categoryValidation = [
     ),
 ];
 
-export { organizationValidation, projectValidation, categoryValidation };
+const userValidation = [
+  body("name")
+    .trim()
+    .notEmpty()
+    .withMessage("User name is required")
+    .isLength({ min: 2, max: 100 })
+    .withMessage("User name must be between 2 and 100 characters."),
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("User email is required")
+    .isEmail()
+    .withMessage("Please provide a valid email address."),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("User password is required")
+    .isLength({ min: 6, max: 100 })
+    .withMessage("User password must be between 6 and 100 characters."),
+];
+
+export { organizationValidation, projectValidation, categoryValidation, userValidation };
