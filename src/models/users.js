@@ -20,4 +20,20 @@ const createUser = async (userName, email, password_hash, userRole) => {
   return result.rows[0].user_id;
 };
 
-export { createUser };
+// This function retrieves a user from the database by their email address and returns the user's data.
+const findUserByEmail = async (email) => {
+  const sqlQuery = `
+    SELECT user_id, user_name, user_email, password_hash, role_id
+    FROM users
+    WHERE user_email = $1;
+  `;
+
+  const queryParams = [email];
+  const result = await db.query(sqlQuery, queryParams);
+  if (result.rows.length === 0) {
+    return null; // Return null if no user is found with the given email
+  }
+  return result.rows[0];
+};
+
+export { createUser, findUserByEmail };
