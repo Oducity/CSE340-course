@@ -22,7 +22,11 @@
           <a href="/category">Categories</a>
         </li>
       </ul>
+      <span class="nav-items nav-right register-link">
+        <a href="/register">Register</a>
+      </span>
     </nav>
+    <div class="nav-bottom-belt" ></div>
     <% const messages = flash(); %>
     <% Object.keys(messages).forEach(type => { %>
       <% if(messages[type].length > 0) { %>

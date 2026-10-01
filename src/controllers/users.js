@@ -1,6 +1,6 @@
 // Import the needed modules
 import bcrypt from "bcrypt";
-import { createUser } from "../models/createUser.js";
+import { createUser } from "../models/users.js";
 import { validationResult } from "express-validator";
 
 const showUserRegistrationForm = (req, res) => {
