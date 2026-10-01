@@ -15,7 +15,7 @@ const createUser = async (userName, email, password_hash, userRole) => {
     throw new Error("Failed to create user");
   }
   if (process.env.ENABLE_SQL_LOGGING === "true") {
-    CONSOLE_LOGGER.info(`User created with ID: ${result.rows[0].user_id}`);
+    console.log(`User created with ID: ${result.rows[0].user_id}`);
   }
   return result.rows[0].user_id;
 };
