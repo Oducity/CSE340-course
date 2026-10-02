@@ -287,7 +287,7 @@ span.edit {
 
 span.edit a.edit-link {
   color: var(--color-alert-error-text);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 main ul.list li,

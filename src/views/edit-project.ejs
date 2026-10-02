@@ -10,7 +10,7 @@
                 name="title"
                 id="title"
                 minlength="3"
-                maxlength="199"
+                maxlength="200"
                 required 
                 value="<%= projectData.projectTitle %>" 
             />
@@ -21,7 +21,7 @@
             <textarea
                 name="description"
                 id="description"
-                maxlength="800"
+                maxlength="999"
                 required>
                     <%= projectData.projectDescription %>
             </textarea>
@@ -32,8 +32,8 @@
             <textarea 
                 name="project_location"
                 id="project_location"
-                required minlength="2"
-                maxlength="190">
+                required minlength="3"
+                maxlength="300">
                     <%= projectData.projectLocation %>
             </textarea>
         </div>
