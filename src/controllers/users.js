@@ -71,7 +71,7 @@ const processLoginForm = async (req, res) => {
     if (res.locals.NODE_ENV === "development") {
       console.log("User logged in:", user);
     }
-    res.redirect("/");
+    res.redirect("/dashboard");
   } catch (error) {
     console.error("Error authenticating user", error);
     req.flash("error", "Error authenticating user. Please try again later.");
@@ -98,11 +98,22 @@ const processLogout = (req, res) => {
   res.redirect("/login");
 };
 
-module.exports = {
+// This function displays the user dashboard page
+const showDashboard = (req, res) => {
+  const { user_name, user_email } = req.session.user;
+  res.render("dashboard", {
+    title: "Dashboard",
+    email: user_email,
+    name: user_name,
+  });
+};
+
+export {
   showUserRegistrationForm,
   processUserRegistrationForm,
   showLoginForm,
   processLogout,
   processLoginForm,
   requireLogin,
+  showDashboard,
 };
