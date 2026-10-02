@@ -98,6 +98,12 @@ const processLogout = (req, res) => {
   res.redirect("/login");
 };
 
+// This function displays the user dashboard page
+const showDashboard = (req, res) => {
+  const { name, email } = req.session.user;
+  res.render("dashboard", { title: "Dashboard", email, name });
+};
+
 module.exports = {
   showUserRegistrationForm,
   processUserRegistrationForm,
@@ -105,4 +111,5 @@ module.exports = {
   processLogout,
   processLoginForm,
   requireLogin,
+  showDashboard,
 };
