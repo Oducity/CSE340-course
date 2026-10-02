@@ -12,8 +12,10 @@ const organizationValidation = [
     .trim()
     .notEmpty()
     .withMessage("Organization description is required")
-    .isLength({ max: 500 })
-    .withMessage("Organization description can not exceed 500 characters."),
+    .isLength({ min: 30, max: 500 })
+    .withMessage(
+      "Organization description must be between 30 and 500 characters.",
+    ),
   body("contactEmail")
     .trim()
     .notEmpty()
