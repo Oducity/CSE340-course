@@ -10,7 +10,8 @@
         type="text"
         id="title"
         name="title"
-        maxlength="150"
+        minLength="3"
+        maxlength="200"
         required />
     </div>
 
@@ -19,7 +20,8 @@
       <textarea
         id="description"
         name="description"
-        maxlength="800"
+        minLength="20"
+        maxLength="999"
         required
       ></textarea>
     </div>
@@ -30,8 +32,8 @@
       type="text"
       id="project_location"
       name="project_location"
-      minLength="2"
-      maxLength="255"
+      minLength="3"
+      maxLength="300"
       required
       />
     </div>
@@ -42,7 +44,6 @@
         type="date"
         id="project_date"
         name="project_date"
-        maxlength="255"
         required
       />
     </div>
