@@ -26,8 +26,9 @@ const createUser = async (userName, email, password_hash, userRole) => {
 //  creating this branch, so this function is already present in the main branch. I have added it here for completeness.
 const findUserByEmail = async (email) => {
   const sqlQuery = `
-    SELECT user_id, user_name, user_email, password_hash, role_id
+    SELECT user_id, user_name, user_email, password_hash, roles.role_name
     FROM users
+    JOIN roles ON users.role_id = roles.role_id
     WHERE user_email = $1;
   `;
 
