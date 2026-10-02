@@ -71,7 +71,7 @@ const processLoginForm = async (req, res) => {
     if (res.locals.NODE_ENV === "development") {
       console.log("User logged in:", user);
     }
-    res.redirect("/");
+    res.redirect("/dashboard");
   } catch (error) {
     console.error("Error authenticating user", error);
     req.flash("error", "Error authenticating user. Please try again later.");

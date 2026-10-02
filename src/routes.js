@@ -40,6 +40,8 @@ import {
   showLoginForm,
   processLoginForm,
   processLogout,
+  requireLogin,
+  showDashboard
 } from "./controllers/users.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -96,6 +98,9 @@ router.get("/login", showLoginForm);
 
 // This route handles the user logout process
 router.get("/logout", processLogout);
+
+// This route displays the user dashboard page
+router.get("/dashboard", requireLogin, showDashboard);
 
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
