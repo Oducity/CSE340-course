@@ -114,9 +114,8 @@ const showDashboard = (req, res) => {
 // the role parameter of the admin as an argument and returns a middleware function that checks if the user is logged
 // in and has the admin role. If the user is not logged in or does not have the admin role, it redirects them to
 // the home page with an error message.
-const requireRole = async (role) => {
-  role = "admin";
-  return (req, res, next) => {
+const requireRole = (role) => {
+  return async (req, res, next) => {
     if (!req.session || !req.session.user) {
       req.flash("error", "You must be logged in to view this page.");
       return res.redirect("/login");
