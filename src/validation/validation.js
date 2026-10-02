@@ -40,8 +40,8 @@ const projectValidation = [
     .trim()
     .notEmpty()
     .withMessage("Project location is required")
-    .isLength({ min: 2, max: 200 })
-    .withMessage("Project location must be between 3 and 255 characters"),
+    .isLength({ min: 3, max: 300 })
+    .withMessage("Project location must be between 3 and 300 characters"),
   body("project_date")
     .trim()
     .notEmpty()
@@ -95,4 +95,9 @@ const userValidation = [
     .withMessage("User password must be between 6 and 100 characters."),
 ];
 
-export { organizationValidation, projectValidation, categoryValidation, userValidation };
+export {
+  organizationValidation,
+  projectValidation,
+  categoryValidation,
+  userValidation,
+};

@@ -21,10 +21,18 @@
         <li class="nav-items">
           <a href="/category">Categories</a>
         </li>
+        <li>
+            <span class="nav-items nav-right">
+              <% if (isLoggedIn) { %>
+                <a href="/logout">Logout</a>
+              <% } else { %>
+                <a href="/login">Login</a><div class="nav-divider">|</div>
+                <a href="/register">Register</a>
+              <% } %>
+          </span>
+        </li>
       </ul>
-      <span class="nav-items nav-right register-link">
-        <a href="/register">Register</a>
-      </span>
+
     </nav>
     <div class="nav-bottom-belt" ></div>
     <% const messages = flash(); %>

@@ -37,6 +37,9 @@ import {
 import {
   showUserRegistrationForm,
   processUserRegistrationForm,
+  showLoginForm,
+  processLoginForm,
+  processLogout,
 } from "./controllers/users.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -88,6 +91,12 @@ router.get("/updateCategoryForm/:id", showUpdateCategoryForm);
 // This route display the user registration form
 router.get("/register", showUserRegistrationForm);
 
+// This route display the user login form
+router.get("/login", showLoginForm);
+
+// This route handles the user logout process
+router.get("/logout", processLogout);
+
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
 router.post("/new-projectFormPage", projectValidation, processNewProjectForm);
@@ -126,6 +135,9 @@ router.post(
 
 // This route processes the new user registration form submission
 router.post("/register", userValidation, processUserRegistrationForm);
+
+// This route handles the user login form submission
+router.post("/login", processLoginForm);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);

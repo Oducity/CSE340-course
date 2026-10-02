@@ -69,6 +69,12 @@ app.use((req, res, next) => {
 // res.locals to be available to all .ejs files throughout the programme.
 app.use((req, res, next) => {
   res.locals.NODE_ENV = NODE_ENV;
+  if (req.session && req.session.user) {
+    res.locals.isLoggedIn = true;
+    res.locals.user = req.session.user;
+  } else {
+    res.locals.isLoggedIn = false; 
+  }
   next();
 });
 
