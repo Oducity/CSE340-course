@@ -97,8 +97,11 @@ nav ul {
 }
 
 .nav-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  column-gap: 0.5rem;
   margin-right: 2.5rem;
-  padding: 0.5rem 0.5rem;
   background-color: var(--color-nav-text);
   align-self: center;
   border: 1px solid var(--color-alert-success-text);
@@ -106,6 +109,9 @@ nav ul {
   min-width: 100px;
   text-align: center;
   justify-content: center;
+  padding: 1px 7px;
+  font-size: 1rem;
+  min-height: 44px;
   a {
     color: var(--color-nav-bg);
     text-decoration: none;
@@ -392,14 +398,8 @@ footer p {
   }
 
   .nav-right {
-    display: flex;
-    flex-direction: column;
-    row-gap: 0.2rem solid var(--color-alert-success-text);
     min-width: 12rem;
     margin-right: 0;
-    padding: 0.5rem 0 0 0;
-    font-size: 1rem;
-    min-height: 48px;
   }
 }
 
