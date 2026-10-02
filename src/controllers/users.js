@@ -100,11 +100,15 @@ const processLogout = (req, res) => {
 
 // This function displays the user dashboard page
 const showDashboard = (req, res) => {
-  const { name, email } = req.session.user;
-  res.render("dashboard", { title: "Dashboard", email, name });
+  const { user_name, user_email } = req.session.user;
+  res.render("dashboard", {
+    title: "Dashboard",
+    email: user_email,
+    name: user_name,
+  });
 };
 
-module.exports = {
+export {
   showUserRegistrationForm,
   processUserRegistrationForm,
   showLoginForm,
