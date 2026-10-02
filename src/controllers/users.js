@@ -79,6 +79,15 @@ const processLoginForm = async (req, res) => {
   }
 };
 
+const requireLogin = (req, res, next) => {
+  // If the user is not logged in, redirect them to the login page with an error message
+  if (!req.session.user) {
+    req.flash("error", "You must be logged in to view this page.");
+    return res.redirect("/login");
+  }
+  next();
+};
+
 // This function logs out the user by destroying the session and redirecting to the home page
 const processLogout = (req, res) => {
   if (req.session.user) {
@@ -89,10 +98,11 @@ const processLogout = (req, res) => {
   res.redirect("/login");
 };
 
-export {
+module.exports = {
   showUserRegistrationForm,
   processUserRegistrationForm,
   showLoginForm,
   processLogout,
   processLoginForm,
+  requireLogin,
 };
