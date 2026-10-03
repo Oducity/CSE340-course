@@ -132,7 +132,7 @@ const requireRole = (role) => {
     }
     if (req.session.user.role_name !== role) {
       req.flash("error", "You must be an admin to view this page.");
-      return res.redirect("/");
+      return res.redirect("/dashboard");
     }
     next(); // This function moves the operation to the next middleware
   };
