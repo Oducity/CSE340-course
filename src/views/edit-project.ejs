@@ -57,7 +57,7 @@
                     <option value="<%= organization.organization_id %>">
                         <%= organization.organization_name %>
                     </option>
-                <% }) %>
+                <% }); %>
             </select>
         </div>
         <% if (locals.user && locals.user.role_name === 'admin') { %>
