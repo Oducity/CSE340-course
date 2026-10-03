@@ -71,4 +71,4 @@ const authenticateUser = async (email, password) => {
   return userWithoutPassword;
 };
 
-export { createUser, findUserByEmail, authenticateUser };
+export { createUser, findUserByEmail, authenticateUser, getUsersDetails };
