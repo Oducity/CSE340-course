@@ -6,7 +6,6 @@ const getAllCategories = async () => {
     SELECT
       category_id,
       category_name,
-      category_description,
       category_tag
       created_at
     FROM category;`;
@@ -20,7 +19,6 @@ const getCategoryDetailsById = async (categoryId) => {
     SELECT
       category_id,
       category_name,
-      category_description,
       category_tag
     FROM category
     WHERE category_id = $1;
@@ -56,38 +54,27 @@ const updateCategoryAssignments = async (projectId, categoryIds) => {
 };
 
 // This model adds a category the category table
-const addNewCategory = async (category_name, category_description) => {
+const addNewCategory = async (category_name) => {
   const sqlQuery = `
-  INSERT INTO category(category_name, category_description)
-  VALUES( $1, $2 )
+  INSERT INTO category(category_name)
+  VALUES( $1 )
   RETURNING category_id;
   `;
 
-  const result = await db.query(sqlQuery, [
-    category_name,
-    category_description,
-  ]);
+  const result = await db.query(sqlQuery, [category_name]);
   return result.rows[0];
 };
 
 // This model function update the categories table
-const updateCategory = async (
-  category_name,
-  category_description,
-  category_id,
-) => {
+const updateCategory = async (category_name, category_id) => {
   const sqlQuery = `
    UPDATE category
-   SET category_name = $1, category_description = $2
-   WHERE category_id = $3
+   SET category_name = $1
+   WHERE category_id = $2
    RETURNING category_id;
   `;
 
-  const result = await db.query(sqlQuery, [
-    category_name,
-    category_description,
-    category_id,
-  ]);
+  const result = await db.query(sqlQuery, [category_name, category_id]);
   return result.rows;
 };
 export {

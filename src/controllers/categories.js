@@ -91,11 +91,8 @@ const processAddNewCategoryForm = async (req, res) => {
     return res.redirect("/new-categoryForm");
   }
   try {
-    const { category_name, category_description } = req.body;
-    const category_id = await addNewCategory(
-      category_name,
-      category_description,
-    );
+    const { category_name } = req.body;
+    const category_id = await addNewCategory(category_name);
     req.flash("success", "Category created successfully");
     res.redirect(`/category/${category_id}`);
   } catch (error) {
@@ -135,12 +132,12 @@ const processUpdateCategoryForm = async (req, res) => {
 
   console.log("Form validation completed");
   try {
-    const { category_name, category_description } = req.body;
+    const { category_name } = req.body;
     console.clear();
     console.log(
       "I reached processUpdateCategoryForm controller. Before model function",
     );
-    await updateCategory(category_name, category_description, category_id);
+    await updateCategory(category_name, category_id);
     console.log("After model function");
 
     req.flash("success", "Category updated successfully");
