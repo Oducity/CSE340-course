@@ -40,6 +40,17 @@ const findUserByEmail = async (email) => {
   return result.rows[0];
 };
 
+const getUsersDetails = async () => {
+  const userQuery = `
+  SELECT user_id, user_name, user_email, role_name
+  FROM users
+  INNER JOIN roles
+  ON users.role_id = roles.role_id;
+  `;
+  const results = await db.query(userQuery);
+  return results.rows.length > 0 ? results.rows : [];
+};
+
 // This function verifies a user's password by comparing the provided password
 //  with the hashed password stored in the database.
 const verifyPassword = async (password, hashedPassword) => {
@@ -60,4 +71,4 @@ const authenticateUser = async (email, password) => {
   return userWithoutPassword;
 };
 
-export { createUser, findUserByEmail, authenticateUser };
+export { createUser, findUserByEmail, authenticateUser, getUsersDetails };

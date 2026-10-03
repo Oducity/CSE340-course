@@ -1,6 +1,10 @@
 // Import the needed modules
 import bcrypt from "bcrypt";
-import { createUser, authenticateUser } from "../models/users.js";
+import {
+  createUser,
+  authenticateUser,
+  getUsersDetails,
+} from "../models/users.js";
 import { validationResult } from "express-validator";
 
 const showUserRegistrationForm = (req, res) => {
@@ -108,6 +112,12 @@ const showDashboard = (req, res) => {
   });
 };
 
+// This controller function handles the getUserDetails model function
+const showAllUsersPage = async (req, res) => {
+  const allUsers = await getUsersDetails();
+  res.render("users-page", { title: "All Users", allUsers });
+};
+
 // This function checks if a user is an admin by checking their role
 // and protects the admin routes only. This function is used as middleware in the routes that require admin access.
 // this function is a factory middleware that returns a middleware function that checks if the user is an admin. It takes
@@ -122,7 +132,7 @@ const requireRole = (role) => {
     }
     if (req.session.user.role_name !== role) {
       req.flash("error", "You must be an admin to view this page.");
-      return res.redirect("/");
+      return res.redirect("/dashboard");
     }
     next(); // This function moves the operation to the next middleware
   };
@@ -137,4 +147,5 @@ export {
   requireLogin,
   showDashboard,
   requireRole,
+  showAllUsersPage,
 };
