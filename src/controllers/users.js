@@ -147,4 +147,5 @@ export {
   requireLogin,
   showDashboard,
   requireRole,
+  showAllUsersPage,
 };
