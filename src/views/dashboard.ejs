@@ -5,12 +5,14 @@
 
   <p>Name: <%= name %>!</p>
   <p>Username: <%= email %></p>
-  <% if (locals.user && locals.user.role_name = 'admin') { %>
-    <div>
-    <p>
-      <a href="/users-page">Go To Users Page</a>
-    </p>
-  </div>
+  <% if (locals.user && locals.user.role_name === 'admin') { %>
+    <ul class="list">
+      <li class="category-item">
+        <span class="add-link">
+          <a class="edit-link" href="/users-page">Go To Users Page</a>
+        </span>
+    </li>
+  </ul>
   <% } %>
 </main>
 <%- include('partials/footer') %>
