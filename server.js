@@ -73,7 +73,7 @@ app.use((req, res, next) => {
     res.locals.isLoggedIn = true;
     res.locals.user = req.session.user;
   } else {
-    res.locals.isLoggedIn = false; 
+    res.locals.isLoggedIn = false;
   }
   next();
 });

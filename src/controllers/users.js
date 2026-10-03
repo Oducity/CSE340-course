@@ -108,6 +108,26 @@ const showDashboard = (req, res) => {
   });
 };
 
+// This function checks if a user is an admin by checking their role
+// and protects the admin routes only. This function is used as middleware in the routes that require admin access.
+// this function is a factory middleware that returns a middleware function that checks if the user is an admin. It takes
+// the role parameter of the admin as an argument and returns a middleware function that checks if the user is logged
+// in and has the admin role. If the user is not logged in or does not have the admin role, it redirects them to
+// the home page with an error message.
+const requireRole = (role) => {
+  return async (req, res, next) => {
+    if (!req.session || !req.session.user) {
+      req.flash("error", "You must be logged in to view this page.");
+      return res.redirect("/login");
+    }
+    if (req.session.user.role_name !== role) {
+      req.flash("error", "You must be an admin to view this page.");
+      return res.redirect("/");
+    }
+    next(); // This function moves the operation to the next middleware
+  };
+};
+
 export {
   showUserRegistrationForm,
   processUserRegistrationForm,
@@ -116,4 +136,5 @@ export {
   processLoginForm,
   requireLogin,
   showDashboard,
+  requireRole,
 };
