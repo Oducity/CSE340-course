@@ -66,13 +66,13 @@ const processNewProjectForm = async (req, res) => {
   }
   try {
     // Destructure the project data from the form using req.body parameter.
-    const [
+    const {
       organization_id,
       title,
       description,
       project_location,
       project_date,
-    ] = req.body;
+    } = req.body;
     //pass project data to the model function that create the new project
     const createdProjectId = await createProject(
       organization_id,
