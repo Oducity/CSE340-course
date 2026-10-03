@@ -42,13 +42,13 @@ const findUserByEmail = async (email) => {
 
 const getUsersDetails = async () => {
   const userQuery = `
-  SELECT user_id, user_name, user_email, roles.role_name
+  SELECT user_id, user_name, user_email, role_name
   FROM users
-  JOIN roles
+  INNER JOIN roles
   ON users.role_id = roles.role_id;
   `;
   const results = await db.query(userQuery);
-  return results.rows > 0 ? results.rows : [];
+  return results.rows.length > 0 ? results.rows : [];
 };
 
 // This function verifies a user's password by comparing the provided password

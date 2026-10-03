@@ -115,7 +115,7 @@ const showDashboard = (req, res) => {
 // This controller function handles the getUserDetails model function
 const showAllUsersPage = async (req, res) => {
   const allUsers = await getUsersDetails();
-  res.render("/users-page", { title: "All Users", allUsers });
+  res.render("users-page", { title: "All Users", allUsers });
 };
 
 // This function checks if a user is an admin by checking their role
