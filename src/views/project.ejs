@@ -41,21 +41,23 @@
         <Strong>Project Date : </Strong>
         <span> <%= projectDetails.projectDate %> </span>
       </li>
-      <li>
-        <span class="add-link">
-          <a class="edit-link" href="/new-projectFormPage">Add new service project</a>
-        </span>
-      </li>
-      <li>
-        <span class="edit">
-          <a class="edit-link" href="/assign-categories/<%= projectDetails.project_id %>">Edit Project Categories</a>
-        </span>
-      </li>
-      <li>
-        <span class="edit">
-          <a class="edit-link" href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a>
-        </span>
-      </li>
+      <% if (locals.user && locals.user.role_name === 'admin' ) { %>
+        <li>
+          <span class="add-link">
+            <a class="edit-link" href="/new-projectFormPage">Add new service project</a>
+          </span>
+        </li>
+        <li>
+          <span class="edit">
+            <a class="edit-link" href="/assign-categories/<%= projectDetails.project_id %>">Edit Project Categories</a>
+          </span>
+        </li>
+        <li>
+          <span class="edit">
+            <a class="edit-link" href="/edit-project/<%= projectDetails.project_id %>">Edit Project</a>
+          </span>
+        </li>
+      <% } %>
 
     </ul>
     

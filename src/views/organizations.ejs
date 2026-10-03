@@ -23,13 +23,15 @@
         <span class="description"><%= organization.description %></span>
       </li>
     <% }); %>
-    <li>
-      <p class="add-org">
-        <a class="add-org-link" href="/new-organization">
-          Add organization
-        </a>
-      </p>
-    </li>
+    <% if (locals.user && locals.user.role_name === 'admin') { %>
+      <li>
+        <p class="add-org">
+          <a class="add-org-link" href="/new-organization">
+            Add organization
+          </a>
+        </p>
+      </li>
+    <% } %>
   </ul>
 </main>
 <%- include('partials/footer') %>

@@ -54,9 +54,12 @@
         value="<%= organizationDetails.logo_filename %>"
       />
     </div>
+    <% if (locals.user && locals.user.role_name === 'admin') { %>
     <div class="form-group">
       <button type="submit">Update Organization</button>
     </div>
+    <% } %>
+
   </form>
 </main>
 <%- include('partials/footer') %>

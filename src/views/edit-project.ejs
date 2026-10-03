@@ -60,9 +60,11 @@
                 <% }) %>
             </select>
         </div>
-        <div class="form-group">
-            <button type="submit">Update Project</button>
-        </div>
+        <% if (locals.user && locals.user.role_name === 'admin') {
+            <div class="form-group">
+                <button type="submit">Update Project</button>
+            </div>
+        <% } %>
     </form>
 
 </main>

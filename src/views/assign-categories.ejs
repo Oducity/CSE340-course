@@ -17,7 +17,9 @@
                 </div>
             <% }) %>
         </div>
-        <button type="submit"> Update Categories</button>
+        <% if(locals.user && locals.user.role_name === 'admin') { %>
+            <button type="submit"> Update Categories</button>
+        <% } %>
     </form>
 
 </main>

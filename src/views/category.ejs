@@ -15,11 +15,15 @@
                 </p>
             </li>
         <% }); %>
-        <li>
+
+        <% if (locals.user && locals.user.role_name === 'admin') { %>
+            <li>
                 <span class="edit">
                     <a class="edit-link" href="/updateCategoryForm/<%= categoryDetail.category_id %>" >Edit Category</a>
                 </span>
-        </li>
+            </li>
+        <% } %>
+
     </ul>
   </section>
 </main>
