@@ -117,7 +117,7 @@ router.get("/logout", processLogout);
 router.get("/dashboard", requireLogin, showDashboard);
 
 // This router handles the users-page and the showAl
-router.get("/users-page", showAllUsersPage);
+router.get("/users-page", requireLogin, requireRole, showAllUsersPage);
 
 // The route for processing the processNewProjectForm function controller
 // for the submission of the form to the database.
