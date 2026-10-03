@@ -20,8 +20,13 @@ const showCategoryPage = async (req, res) => {
 };
 
 const showCategoryDetailsPage = async (req, res) => {
+  console.clear();
+  console.log("I reached showCategoryDetailsPage controller");
+  const categoryId = req.params.id;
+  //console.log("req.params:", req.params);
+  //console.log("categoryId:", categoryId, typeof categoryId);
   try {
-    const categoryId = req.params.id;
+    //const categoryId = req.params.id;
     const categoryDetail = await getCategoryDetailsById(categoryId);
     const categoryProjects = await getProjectsDetailsByCategoryId(categoryId);
     const title = "Category Details";
@@ -93,6 +98,7 @@ const processAddNewCategoryForm = async (req, res) => {
   try {
     const { category_name } = req.body;
     const category_id = await addNewCategory(category_name);
+    console.log("New category created with ID:", category_id);
     req.flash("success", "Category created successfully");
     res.redirect(`/category/${category_id}`);
   } catch (error) {
@@ -106,8 +112,8 @@ const processAddNewCategoryForm = async (req, res) => {
 const showUpdateCategoryForm = async (req, res) => {
   console.clear();
 
-  const categoryId = req.params.id;
-  const categoryDetails = await getCategoryDetailsById(categoryId);
+  const category_id = req.params.id;
+  const categoryDetails = await getCategoryDetailsById(category_id);
   const title = "Update Category";
   console.clear();
   res.render("updateCategoryForm", { title, categoryDetails });
