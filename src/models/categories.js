@@ -62,7 +62,7 @@ const addNewCategory = async (category_name) => {
   `;
 
   const result = await db.query(sqlQuery, [category_name]);
-  return result.rows[0];
+  return result.rows[0].category_id;
 };
 
 // This model function update the categories table
