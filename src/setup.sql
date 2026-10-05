@@ -248,6 +248,7 @@ VALUES
 category_id SERIAL PRIMARY KEY,
 category_name VARCHAR(50) NOT NULL UNIQUE,
 category_description TEXT,
+category_tag TEXT,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
