@@ -41,6 +41,7 @@ CREATE TABLE projects(
   description TEXT NOT NULL,
   project_location VARCHAR(255) NOT NULL,
   project_date DATE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_organization FOREIGN KEY (organization_id) 
     REFERENCES organizations(organization_id)
 );
