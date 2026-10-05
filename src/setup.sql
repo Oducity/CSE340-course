@@ -1,3 +1,7 @@
+
+---- ######################################################################## ----
+-- Query for recreating the database tables and entries
+---- ######################################################################## ----
 -- This script creates the organizations table in the database
 CREATE TABLE organizations (
     organization_id SERIAL PRIMARY KEY,
@@ -8,6 +12,74 @@ CREATE TABLE organizations (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
+-- This script creates the projects table in the database
+CREATE TABLE projects(
+  project_id SERIAL PRIMARY KEY,
+  organization_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  project_location VARCHAR(255) NOT NULL,
+  project_date DATE NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_organization FOREIGN KEY (organization_id) 
+    REFERENCES organizations(organization_id)
+);
+
+
+
+ -- Category table creation
+ CREATE TABLE category (
+category_id SERIAL PRIMARY KEY,
+category_name VARCHAR(50) NOT NULL UNIQUE,
+category_description TEXT,
+category_tag TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+-- This script creates the project_category table in the database
+--which establishes a many-to-many relationship between projects and category
+CREATE TABLE projects_category(
+	project_id INTEGER REFERENCES projects(project_id),
+	category_id INTEGER REFERENCES category(category_id),
+	PRIMARY KEY (project_id, category_id)
+);
+
+
+
+-- This script creates the roles table in the database
+CREATE TABLE roles ( 
+role_id SERIAL PRIMARY KEY,
+role_name VARCHAR(50) NOT NULL UNIQUE,
+role_description TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+-- This script creates the users table in the database
+CREATE TABLE users(
+user_id SERIAL PRIMARY KEY,
+user_name VARCHAR(100) NOT NULL,
+user_email VARCHAR(100) NOT NULL UNIQUE,
+password_hash VARCHAR(255) NOT NULL,
+role_id INTEGER REFERENCES roles(role_id),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- This script create the volunteer table
+-- Which is the users to projects relationship table
+CREATE TABLE volunteer(
+user_id INTEGER REFERENCES users(user_id),
+project_id INTEGER REFERENCES projects(project_id),
+PRIMARY KEY (user_id, project_id),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- ################# New Insert statements ################
 -- This script inserts data into the organizations table
 INSERT INTO organizations (
 	organization_name,
@@ -32,19 +104,6 @@ VALUES (
 	'hello@unityserve.org', ' volunteer coordination group supporting local charities and service initiatives.',
 	'unityserve-logo.png'
 	);
-
--- This script creates the projects table in the database
-CREATE TABLE projects(
-  project_id SERIAL PRIMARY KEY,
-  organization_id INT NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  description TEXT NOT NULL,
-  project_location VARCHAR(255) NOT NULL,
-  project_date DATE NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_organization FOREIGN KEY (organization_id) 
-    REFERENCES organizations(organization_id)
-);
 
 -- This script inserts data into the projects table
 INSERT INTO projects (organization_id, title, description, project_location, project_date)
@@ -245,16 +304,6 @@ VALUES
     '2026-12-19'
 );
 
- -- Category table creation
- CREATE TABLE category (
-category_id SERIAL PRIMARY KEY,
-category_name VARCHAR(50) NOT NULL UNIQUE,
-category_description TEXT,
-category_tag TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
 -- This script inserts data into the category table
 INSERT INTO category (
 	category_name,
@@ -282,13 +331,7 @@ VALUES (
 	'health-wellness-logo.svg'
 );
 
--- This script creates the project_category table in the database
---which establishes a many-to-many relationship between projects and category
-CREATE TABLE projects_category(
-	project_id INTEGER REFERENCES projects(project_id),
-	category_id INTEGER REFERENCES category(category_id),
-	PRIMARY KEY (project_id, category_id)
-);
+
 
 -- This script inserts data into the projects_category table which establishes the many-to-many relationship between projects and category
 INSERT INTO projects_category
@@ -369,30 +412,6 @@ VALUES
 	(29, 4),
 	(30, 3);
 
-ALTER TABLE category ADD COLUMN category_tag TEXT;
-UPDATE category
-SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23e0f2f1'/%3E%3Cpath d='M5 19C5 10 10 5 19 5c0 9-5 14-14 14z' fill='%2300897b'/%3E%3Cpath d='M5 19L13 11' stroke='%23e0f2f1' stroke-width='1.5' fill='none'/%3E%3C/svg%3E" alt="Environmental" width="24" height="24">$$
-WHERE category_id = 1;
-
-UPDATE category
-SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23e8eaf6'/%3E%3Cpath d='M12 5L3 9.5l9 4.5 9-4.5z' fill='%233949ab'/%3E%3Cpath d='M7 12.5v3.5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-3.5l-5 2.5z' fill='%233949ab'/%3E%3C/svg%3E" alt="Educational" width="24" height="24">$$
-WHERE category_id = 2;
-
-UPDATE category
-SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23fff3e0'/%3E%3Ccircle cx='12' cy='8' r='2.5' fill='%23ef6c00'/%3E%3Cpath d='M7.5 18c0-3 2-5 4.5-5s4.5 2 4.5 5z' fill='%23ef6c00'/%3E%3Ccircle cx='5.5' cy='10' r='1.8' fill='%23ef6c00'/%3E%3Cpath d='M2 17c0-2 1.6-3.5 3.5-3.5S9 15 9 17z' fill='%23ef6c00'/%3E%3Ccircle cx='18.5' cy='10' r='1.8' fill='%23ef6c00'/%3E%3Cpath d='M15 17c0-2 1.6-3.5 3.5-3.5S22 15 22 17z' fill='%23ef6c00'/%3E%3C/svg%3E" alt="Community Service" width="24" height="24">$$
-WHERE category_id = 3;
-
-UPDATE category
-SET category_tag = $$<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23e8f5e9'/%3E%3Cpath d='M10 5h4v5h5v4h-5v5h-4v-5H5v-4h5z' fill='%232e7d32'/%3E%3C/svg%3E" alt="Health" width="24" height="24">$$
-WHERE category_id = 4;
-
--- This script creates the roles table in the database
-CREATE TABLE roles ( 
-role_id SERIAL PRIMARY KEY,
-role_name VARCHAR(50) NOT NULL UNIQUE,
-role_description TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 -- This script inserts data into the roles table
 INSERT INTO roles(
@@ -405,93 +424,3 @@ VALUES (
 (
 'admin', 'Administrator with full system access'
 );
-
--- This script creates the users table in the database
-CREATE TABLE users(
-user_id SERIAL PRIMARY KEY,
-user_name VARCHAR(100) NOT NULL,
-user_email VARCHAR(100) NOT NULL UNIQUE,
-password_hash VARCHAR(255) NOT NULL,
-role_id INTEGER REFERENCES roles(role_id),
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
----- ######################################################################## ----
--- Query for recreating the database tables and entries
----- ######################################################################## ----
--- This script creates the organizations table in the database
-CREATE TABLE organizations (
-    organization_id SERIAL PRIMARY KEY,
-    organization_name VARCHAR(150) NOT NULL,
-    organization_email VARCHAR(150) UNIQUE NOT NULL,
-    description TEXT CHECK (char_length(description) <= 500) NOT NULL,
-    logo_filename VARCHAR(255) NOT NULL,
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
--- This script creates the projects table in the database
-CREATE TABLE projects(
-  project_id SERIAL PRIMARY KEY,
-  organization_id INT NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  description TEXT NOT NULL,
-  project_location VARCHAR(255) NOT NULL,
-  project_date DATE NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_organization FOREIGN KEY (organization_id) 
-    REFERENCES organizations(organization_id)
-);
-
-
-
- -- Category table creation
- CREATE TABLE category (
-category_id SERIAL PRIMARY KEY,
-category_name VARCHAR(50) NOT NULL UNIQUE,
-category_description TEXT,
-category_tag TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-
--- This script creates the project_category table in the database
---which establishes a many-to-many relationship between projects and category
-CREATE TABLE projects_category(
-	project_id INTEGER REFERENCES projects(project_id),
-	category_id INTEGER REFERENCES category(category_id),
-	PRIMARY KEY (project_id, category_id)
-);
-
-
-
--- This script creates the roles table in the database
-CREATE TABLE roles ( 
-role_id SERIAL PRIMARY KEY,
-role_name VARCHAR(50) NOT NULL UNIQUE,
-role_description TEXT,
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-
--- This script creates the users table in the database
-CREATE TABLE users(
-user_id SERIAL PRIMARY KEY,
-user_name VARCHAR(100) NOT NULL,
-user_email VARCHAR(100) NOT NULL UNIQUE,
-password_hash VARCHAR(255) NOT NULL,
-role_id INTEGER REFERENCES roles(role_id),
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- This script create the volunteer table
--- Which is the users to projects relationship table
-CREATE TABLE volunteer(
-user_id INTEGER REFERENCES users(user_id),
-project_id INTEGER REFERENCES projects(project_id),
-PRIMARY KEY (user_id, project_id),
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
