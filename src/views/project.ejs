@@ -15,7 +15,10 @@
           <% categoryTag.forEach((tag) => { %>
             <span>
               <a href="/category/<%= tag.categoryId %>">
-                <%- tag.category_tag %>
+                <img
+                  src="/images/<%=tag.category_tag%>"
+                  alt="<%= tag.category_tag %>" width="24" height="24"
+                />
               </a>
             </span>
           <% }) %>

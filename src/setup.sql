@@ -307,28 +307,29 @@ VALUES
 -- This script inserts data into the category table
 INSERT INTO category (
 	category_name,
-	category_description
+	category_description,
+	category_tag
 )
 VALUES (
 	'Environmental',
 	'This category contain all projects related to development and improvement of the environment.',
-	'environmental-logo.svg'
+	'environmental-logo.png'
 ),
 (
 	'Educational',
 	'This category contain all projects related to education. Either formal or informal.',
-	'educational-logo.svg'
+	'educational-logo.png'
 
 ),
 (
 	'Community Service',
 	'This contain all projects related to community services.',
-	'community-service-logo.svg'
+	'community-service-logo.png'
 ),
 (
 	'Health and Wellness',
 	'This category contain all projects related to health and wellness',
-	'health-wellness-logo.svg'
+	'health-wellness-logo.png'
 );
 
 
