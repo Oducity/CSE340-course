@@ -414,13 +414,12 @@ VALUES
 
 
 -- This script inserts data into the roles table
-INSERT INTO roles(
-role_name, 
-role_description
-)
+INSERT INTO roles (role_name, role_description)
 VALUES (
-'user', 'Standard user with basic access'
+	'admin',
+	'Admin role has full access to the database data view and modification.'
 ),
 (
-'admin', 'Administrator with full system access'
+	'user',
+	'User has limited or moderate access to his own data modification like clamming and unclamming project contribution. He also has access to view list of organizations and projects.'
 );
