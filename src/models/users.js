@@ -71,4 +71,22 @@ const authenticateUser = async (email, password) => {
   return userWithoutPassword;
 };
 
-export { createUser, findUserByEmail, authenticateUser, getUsersDetails };
+// This function handle adds a volunteer to a project
+const volunteerForProject = async (userId, projectId) => {
+  const sqlQuery = `
+  INSERT INTO volunteer (user_id, project_id)
+  VALUES ($1, $2)
+  RETURNING (user_id, project_id);
+  `;
+  const queryParams = [userId, projectId];
+  const result = await db.query(sqlQuery, queryParams);
+  return result.rows.length > 0 ? result.rows[0] : [];
+};
+
+export {
+  createUser,
+  findUserByEmail,
+  authenticateUser,
+  getUsersDetails,
+  volunteerForProject,
+};

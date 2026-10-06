@@ -28,9 +28,14 @@
         <Strong>Organization : </Strong>
         <span> <%= projectDetails.organizationName %> </span>
       </li>
-      <li>
+      <a>
         <Strong>Title :</Strong>
         <span> <%= projectDetails.projectTitle %> </span>
+          <%- 
+            isLoggedIn && !volunteer ? '<a href="">Volunteer for project</a>'
+            : isLoggedIn && volunteer ? '<a href="" >Drop project</a>'
+            : ''
+          %>
       </li>
       <li>
         <Strong>Project Description : </Strong>
