@@ -72,7 +72,7 @@ const authenticateUser = async (email, password) => {
 };
 
 // This function handle adds a volunteer to a project
-const volunteerForProject = async (userId, projectId) => {
+const createVolunteerForProject = async (userId, projectId) => {
   const sqlQuery = `
   INSERT INTO volunteer (user_id, project_id)
   VALUES ($1, $2)
@@ -88,5 +88,5 @@ export {
   findUserByEmail,
   authenticateUser,
   getUsersDetails,
-  volunteerForProject,
+  createVolunteerForProject,
 };

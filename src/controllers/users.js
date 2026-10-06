@@ -4,6 +4,7 @@ import {
   createUser,
   authenticateUser,
   getUsersDetails,
+  createVolunteerForProject,
 } from "../models/users.js";
 import { validationResult } from "express-validator";
 
@@ -54,16 +55,7 @@ const showLoginForm = (req, res) => {
 const processLoginForm = async (req, res) => {
   // Destructure the user input from the request body
   const { email, password } = req.body;
-  // Validate the user input using express-validator
-  //const results = validationResult(req);
-  //if (!results.isEmpty()) {
-  //  // If validation failed then through errors
-  //  results.array().forEach((error) => {
-  //    req.flash("error", error.msg);
-  //  });
-  //  // If validation failed, redirect back to the registration form with the errors
-  //  return res.redirect(400).render("login", { errors });
-  //}
+
   try {
     const user = await authenticateUser(email, password);
     if (!user) {
@@ -138,6 +130,25 @@ const requireRole = (role) => {
   };
 };
 
+// This function get the userId of the volunteer and the projectId of the project the user want to volunteer for.
+const processVolunteerForProject = async (req, res) => {
+  const { userId, projectId } = req.body;
+
+  try {
+    const processedVolunteer = await createVolunteerForProject(
+      userId,
+      projectId,
+    );
+    req.session.user = processedVolunteer;
+    req.flash("success", "Success in volunteering for this project");
+    res.redirect(`/project/${projectId}`);
+  } catch (error) {
+    console.error("Error creating new volunteer", error);
+    req.flash("error", "Error adding you to volunteers");
+    res.redirect(`/project/${projectId}`);
+  }
+};
+
 export {
   showUserRegistrationForm,
   processUserRegistrationForm,
@@ -148,4 +159,5 @@ export {
   showDashboard,
   requireRole,
   showAllUsersPage,
+  processVolunteerForProject,
 };
