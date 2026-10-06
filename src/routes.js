@@ -44,6 +44,7 @@ import {
   showDashboard,
   requireRole,
   showAllUsersPage,
+  processVolunteerForProject,
 } from "./controllers/users.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -177,6 +178,9 @@ router.post("/register", userValidation, processUserRegistrationForm);
 
 // This route handles the user login form submission
 router.post("/login", processLoginForm);
+
+// This router handles the volunteering for a project
+router.post("/project/:id", requireLogin, processVolunteerForProject);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);

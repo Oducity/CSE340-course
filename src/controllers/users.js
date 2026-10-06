@@ -5,6 +5,7 @@ import {
   authenticateUser,
   getUsersDetails,
   createVolunteerForProject,
+  findProjectByVolunteerId
 } from "../models/users.js";
 import { validationResult } from "express-validator";
 
@@ -148,6 +149,9 @@ const processVolunteerForProject = async (req, res) => {
     res.redirect(`/project/${projectId}`);
   }
 };
+
+const getVolunteeredProject = async (req, res) => {
+}
 
 export {
   showUserRegistrationForm,

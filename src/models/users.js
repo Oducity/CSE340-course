@@ -83,7 +83,7 @@ const createVolunteerForProject = async (userId, projectId) => {
   return result.rows.length > 0 ? result.rows[0] : [];
 };
 
-const findVolunteeredProject = async (userId, projectId) => {
+const findProjectByVolunteerId = async (userId, projectId) => {
   const sqlQuery = `
   SELECT user_id, project_id
   FROM volunteer
@@ -100,4 +100,5 @@ export {
   authenticateUser,
   getUsersDetails,
   createVolunteerForProject,
+  findProjectByVolunteerId,
 };

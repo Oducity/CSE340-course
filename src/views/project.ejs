@@ -28,14 +28,10 @@
         <Strong>Organization : </Strong>
         <span> <%= projectDetails.organizationName %> </span>
       </li>
-      <a>
+      <li>
         <Strong>Title :</Strong>
         <span> <%= projectDetails.projectTitle %> </span>
-          <%- 
-            isLoggedIn && !volunteer ? '<a href="">Volunteer for project</a>'
-            : isLoggedIn && volunteer ? '<a href="" >Drop project</a>'
-            : ''
-          %>
+          
       </li>
       <li>
         <Strong>Project Description : </Strong>
@@ -49,7 +45,25 @@
         <Strong>Project Date : </Strong>
         <span> <%= projectDetails.projectDate %> </span>
       </li>
+      <% if (locals.user) { %>
+        <li class="warning">
+          <% if (!isVolunteer || isVolunteer === 'null') { %>
+            <form action="/project<%= projectDetails.projectId %>">
+              <button class="be-volunteer" type="submit"> You May Volunteer for This Project</button>
+            </form>
+          <% } else { %>
+            <form action="#">
+              <span class="volunteer">You are a Volunteer</span>
+              <span class="error">
+                <button class="drop-project">Drop Project</button>
+              </span>
+            </form>
+          <% } %>
+        </li>
+      <% } %>
+
       <% if (locals.user && locals.user.role_name === 'admin' ) { %>
+        
         <li>
           <span class="add-link">
             <a class="edit-link" href="/new-projectFormPage">Add new service project</a>

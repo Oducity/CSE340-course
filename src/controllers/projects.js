@@ -8,6 +8,7 @@ import {
   updateProject,
 } from "../models/projects.js"; // import getAllProjects from projects.js to get all projects from the database
 import { getAllOrganizations } from "../models/organizations.js";
+import { findProjectByVolunteerId } from "../models/users.js";
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -35,11 +36,14 @@ const showProjectDetailsPage = async (req, res, next) => {
     return next(err);
   }
 
+  const isVolunteer = req.session.user ? await findProjectByVolunteerId(req.session.user.user_id, projectId)  : null;
+
   const title = "Project Details";
   res.render("project", {
     title,
     projectDetails,
     categoryTag,
+    isVolunteer,
   });
 };
 
