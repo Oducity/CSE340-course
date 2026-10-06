@@ -83,6 +83,17 @@ const createVolunteerForProject = async (userId, projectId) => {
   return result.rows.length > 0 ? result.rows[0] : [];
 };
 
+const findVolunteeredProject = async (userId, projectId) => {
+  const sqlQuery = `
+  SELECT user_id, project_id
+  FROM volunteer
+  WHERE (user_id = $1 AND project_id = $2);
+  `;
+
+  const result = await db.query(sqlQuery, [userId, projectId]);
+  return result.rows.length > 0 ? result.rows[0] : null;
+};
+
 export {
   createUser,
   findUserByEmail,
