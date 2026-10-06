@@ -99,15 +99,12 @@ nav ul {
 .nav-right {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   column-gap: 0.5rem;
-  margin-right: 2.5rem;
   background-color: var(--color-nav-text);
   align-self: center;
   border: 1px solid var(--color-alert-success-text);
   border-radius: var(--radius);
   min-width: 100px;
-  text-align: center;
   justify-content: center;
   padding: 1px 7px;
   font-size: 1rem;
