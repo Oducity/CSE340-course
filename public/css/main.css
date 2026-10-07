@@ -219,6 +219,16 @@ form {
   margin: 0;
   padding: 0;
   list-style: none;
+  span.volunteer {
+    text-align: center;
+    color: var(--color-alert-success-text);
+    font-weight: 600;
+  }
+
+  button.drop-project {
+    background-color: var(--color-alert-error-background);
+    color: var(--color-alert-error-text);
+  }
 }
 
 .form-group label {
