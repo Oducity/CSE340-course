@@ -48,12 +48,12 @@
       <% if (locals.user) { %>
         <li class="warning">
           <% if (!isVolunteer || isVolunteer === 'null') { %>
-            <form action="/project/<%= projectDetails.project_id %>" method="post">
+            <form action="/addVolunteerToProject/<%= projectDetails.project_id %>" method="POST">
               <button class="be-volunteer" type="submit"> You May Volunteer for This Project</button>
             </form>
           <% } else { %>
-            <form action="#">
-              <span class="volunteer">You are a Volunteer for This Project</span>
+            <form action="/removeVolunteerFromProject/<%= projectDetails.project_id %>" method="POST">
+              <input type="hidden" class="remove" value="remove">
               <button class="drop-project">You May Drop Project</button>
             </form>
           <% } %>

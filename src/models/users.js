@@ -83,7 +83,7 @@ const addVolunteerToProject = async (userId, projectId) => {
   return result.rows.length > 0 ? result.rows[0] : [];
 };
 
-const findVolunteerProjectsByUserId = async (userId, projectId) => {
+const findVolunteerProjectByUserId = async (userId, projectId) => {
   const sqlQuery = `
   SELECT v.user_id, p.project_id, p.title
   FROM projects p
@@ -112,6 +112,6 @@ export {
   authenticateUser,
   getUsersDetails,
   addVolunteerToProject,
-  findVolunteerProjectsByUserId,
+  findVolunteerProjectByUserId,
   removeVolunteerFromProject,
 };

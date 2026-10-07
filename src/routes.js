@@ -45,6 +45,7 @@ import {
   requireRole,
   showAllUsersPage,
   processAddVolunteerToProject,
+  processRemoveVolunteerFromProject,
 } from "./controllers/users.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -180,7 +181,18 @@ router.post("/register", userValidation, processUserRegistrationForm);
 router.post("/login", processLoginForm);
 
 // This router handles the volunteering for a project
-router.post("/project/:id", requireLogin, processAddVolunteerToProject);
+router.post(
+  "/addVolunteerToProject/:id",
+  requireLogin,
+  processAddVolunteerToProject,
+);
+
+// This route handles the removal of volunteer from a project
+router.post(
+  "/removeVolunteerFromProject/:id",
+  requireLogin,
+  processRemoveVolunteerFromProject,
+);
 
 //Error handler route.
 router.get("/test-error", testErrorPage);
