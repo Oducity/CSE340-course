@@ -83,26 +83,27 @@ const addVolunteerToProject = async (userId, projectId) => {
   return result.rows.length > 0 ? result.rows[0] : [];
 };
 
-const findProjectByVolunteerId = async (userId, projectId) => {
+const findVolunteerProjectsByUserId = async (userId, projectId) => {
   const sqlQuery = `
-  SELECT user_id, project_id
-  FROM volunteer
-  WHERE (user_id = $1 AND project_id = $2);
+  SELECT v.user_id, p.project_id, p.title
+  FROM projects p
+  JOIN volunteer v
+    ON v.project_id = p.project_id
+  WHERE (v.user_id = $1 AND v.project_id = $2);
   `;
 
   const result = await db.query(sqlQuery, [userId, projectId]);
-  return result.rows.length > 0 ? result.rows[0] : null;
+  return result.rows.length > 0 ? result.rows : null;
 };
 
 // This function removes volunteer from project.
 const removeVolunteerFromProject = async (userId, projectId) => {
   const sqlQuery = `
-  DELETE volunteer
-  FROM volunteer
+  DELETE FROM volunteer
   WHERE user_id = $1 AND project_id = $2;
   `;
   const result = await db.query(sqlQuery, [userId, projectId]);
-  return result.rows.length > 0 ? true : null;
+  return result.rowCount > 0;
 };
 
 export {
@@ -111,5 +112,6 @@ export {
   authenticateUser,
   getUsersDetails,
   addVolunteerToProject,
-  findProjectByVolunteerId,
+  findVolunteerProjectsByUserId,
+  removeVolunteerFromProject,
 };

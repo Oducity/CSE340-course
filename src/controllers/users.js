@@ -5,7 +5,8 @@ import {
   authenticateUser,
   getUsersDetails,
   addVolunteerToProject,
-  findProjectByVolunteerId,
+  findVolunteerProjectsByUserId,
+  removeVolunteerFromProject,
 } from "../models/users.js";
 import { validationResult } from "express-validator";
 
