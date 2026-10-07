@@ -4,7 +4,7 @@ import {
   createUser,
   authenticateUser,
   getUsersDetails,
-  createVolunteerForProject,
+  addVolunteerToProject,
   findProjectByVolunteerId,
 } from "../models/users.js";
 import { validationResult } from "express-validator";
@@ -132,16 +132,13 @@ const requireRole = (role) => {
 };
 
 // This function get the userId of the volunteer and the projectId of the project the user want to volunteer for.
-const processVolunteerForProject = async (req, res) => {
+const processAddVolunteerToProject = async (req, res) => {
   //const { userId, projectId } = req.body;
   const projectId = req.params.id;
   const userId = req.session.user.user_id;
 
   try {
-    const processedVolunteer = await createVolunteerForProject(
-      userId,
-      projectId,
-    );
+    const processedVolunteer = await addVolunteerToProject(userId, projectId);
     req.session.user = processedVolunteer;
     req.flash("success", "Success in volunteering for this project");
     res.redirect(`/project/${projectId}`);
@@ -164,5 +161,5 @@ export {
   showDashboard,
   requireRole,
   showAllUsersPage,
-  processVolunteerForProject,
+  processAddVolunteerToProject,
 };

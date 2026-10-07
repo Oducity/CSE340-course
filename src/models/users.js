@@ -72,7 +72,7 @@ const authenticateUser = async (email, password) => {
 };
 
 // This function handle adds a volunteer to a project
-const createVolunteerForProject = async (userId, projectId) => {
+const addVolunteerToProject = async (userId, projectId) => {
   const sqlQuery = `
   INSERT INTO volunteer (user_id, project_id)
   VALUES ($1, $2)
@@ -94,11 +94,22 @@ const findProjectByVolunteerId = async (userId, projectId) => {
   return result.rows.length > 0 ? result.rows[0] : null;
 };
 
+// This function removes volunteer from project.
+const removeVolunteerFromProject = async (userId, projectId) => {
+  const sqlQuery = `
+  DELETE volunteer
+  FROM volunteer
+  WHERE user_id = $1 AND project_id = $2;
+  `;
+  const result = await db.query(sqlQuery, [userId, projectId]);
+  return result.rows.length > 0 ? true : null;
+};
+
 export {
   createUser,
   findUserByEmail,
   authenticateUser,
   getUsersDetails,
-  createVolunteerForProject,
+  addVolunteerToProject,
   findProjectByVolunteerId,
 };
