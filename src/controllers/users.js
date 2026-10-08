@@ -6,6 +6,7 @@ import {
   getUsersDetails,
   addVolunteerToProject,
   removeVolunteerFromProject,
+  getVolunteerProjectsByUserId,
 } from "../models/users.js";
 import { validationResult } from "express-validator";
 
@@ -162,11 +163,29 @@ const processRemoveVolunteerFromProject = async (req, res) => {
       "You have been successfully removed from the project volunteers",
     );
 
-    res.redirect(`/project/${projectId}`);
+    res.redirect("/dashboard");
   } catch (error) {
     console.error("Error removing volunteer from project", error);
     req.flash("error", "Error removing you from project volunteer");
     res.redirect(`/project/${projectId}`);
+  }
+};
+
+// Function shows all projects a user is volunteering for
+const showGetVolunteerProjectsByUserId = async (req, res) => {
+  const userId = req.session.user.user_id;
+  try {
+    const volunteerProjects = await getVolunteerProjectsByUserId(userId);
+    if (!volunteerProjects) {
+      req.flash("warning", "You are not volunteering for any project!");
+      res.redirect("/dashboard", { volunteerProjects });
+    }
+    req.flash("success", "You are welcome, volunteer.");
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.error("Error fetching volunteer projects", error);
+    req.flash("error", "Error fetching project(s) you are volunteering for!");
+    res.redirect("/dashboard");
   }
 };
 
@@ -184,4 +203,5 @@ export {
   showAllUsersPage,
   processAddVolunteerToProject,
   processRemoveVolunteerFromProject,
+  showGetVolunteerProjectsByUserId,
 };
