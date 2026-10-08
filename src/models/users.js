@@ -106,6 +106,20 @@ const removeVolunteerFromProject = async (userId, projectId) => {
   return result.rowCount > 0;
 };
 
+// This function get all projects a user is volunteering for
+const getVolunteerProjectsByUserId = async (userId) => {
+  const sqlQuery = `
+    SELECT p.project_id, p.title
+    FROM projects p
+    JOIN volunteer v
+      ON v.project_id = p.project_id
+    WHERE v.user_id = $1;
+  `;
+
+  const result = await db.query(sqlQuery, [userId]);
+  return result.rows.length > 0 ? result.rows : null;
+};
+
 export {
   createUser,
   findUserByEmail,
@@ -114,4 +128,5 @@ export {
   addVolunteerToProject,
   findVolunteerProjectByUserId,
   removeVolunteerFromProject,
+  getVolunteerProjectsByUserId,
 };

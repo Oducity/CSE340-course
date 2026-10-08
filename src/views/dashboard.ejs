@@ -3,16 +3,27 @@
   <h1><%= title %></h1>
   <h2>Dashboard</h2>
 
-  <p>Name: <%= name %>!</p>
+  <p>Name: <%= name %></p>
   <p>Username: <%= email %></p>
+  <ul class="list">
   <% if (locals.user && locals.user.role_name === 'admin') { %>
-    <ul class="list">
       <li class="category-item">
         <span class="add-link">
           <a class="edit-link" href="/users-page">Go To Users Page</a>
         </span>
     </li>
-  </ul>
   <% } %>
+  <% if(locals.user && volunteerProjects !== null && volunteerProjects.length > 0 ){ %>
+      <% volunteerProjects.forEach(project => { %>
+        <li>
+          <form action="/removeVolunteerFromProject/<%= project.project_id %>" method="POST">
+            <h3 class="dashboard-form"><%= project.title %></h3>
+            <input type="hidden" class="remove" value="remove">
+            <button class="drop-project">You May Drop This Project</button>
+        </form>
+        </li>
+      <% }) %>
+  <% } %>
+  </ul>
 </main>
 <%- include('partials/footer') %>

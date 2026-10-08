@@ -21,6 +21,11 @@
         <li class="nav-items">
           <a href="/category">Categories</a>
         </li>
+        <% if (isLoggedIn) { %>
+          <li class="nav-items">
+            <a href="/dashboard">Go to Dashboard</a>
+          </li>
+        <% } %>
         <li>
             <span class="nav-items nav-right">
               <% if (isLoggedIn) { %>
