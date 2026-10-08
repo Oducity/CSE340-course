@@ -112,7 +112,7 @@ const getVolunteerProjectsByUserId = async (userId) => {
     SELECT p.project_id, p.title
     FROM projects p
     JOIN volunteer v
-      ON v.project_id = p,.project_id
+      ON v.project_id = p.project_id
     WHERE v.user_id = $1;
   `;
 

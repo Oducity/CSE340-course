@@ -320,6 +320,10 @@ form .form-group {
     box-shadow 0.2s ease;
 }
 
+form h3.dashboard-form {
+  margin: 0;
+}
+
 .add-org {
   background-color: var(--color-btn-background);
   font-weight: 600;

@@ -71,6 +71,7 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 -- This script create the volunteer table
 -- Which is the users to projects relationship table
+-- to track which user is volunteering for which project.
 CREATE TABLE volunteer(
 user_id INTEGER REFERENCES users(user_id),
 project_id INTEGER REFERENCES projects(project_id),

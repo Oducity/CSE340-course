@@ -46,7 +46,7 @@ import {
   showAllUsersPage,
   processAddVolunteerToProject,
   processRemoveVolunteerFromProject,
-  showGetVolunteerProjectsByUserId,
+  loadGetVolunteerProjectsByUserId,
 } from "./controllers/users.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -120,8 +120,8 @@ router.get("/logout", processLogout);
 router.get(
   "/dashboard",
   requireLogin,
+  loadGetVolunteerProjectsByUserId,
   showDashboard,
-  showGetVolunteerProjectsByUserId,
 );
 
 // This router handles the users-page and the showAl
